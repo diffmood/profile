@@ -24,7 +24,7 @@
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
   }
-  #header h1 {
+  #home h1 {
     font-size: 2.5rem;
   }
   #about .about-img::after {
