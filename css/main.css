@@ -33,7 +33,7 @@
     background-image: -o-linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
       url(../assets/images/bg.jpg);
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      url(../assets/images/bg.jpg);
+      url(https://mir-s3-cdn-cf.behance.net/ba4a5d764f1d80e0daa21dcd62a6b32d/30098444-3587-4622-86f6-8b32bb83e021_rwc_0x956x3264x535x3264.jpeg?h=173bdd504dccfdce285ce9edbebca07f);
     background-position: center;
     background-size: cover;
   }
