@@ -2,7 +2,7 @@
 
 
 var typed = new Typed("#animated-text", {
-  strings: ["Mohamed", "Developer", "Designer"],
+  strings: ["عبدالرحمن", "مطور ويب", "باحث تقني"],
   typeSpeed: 100,
   backSpeed: 100,
   loop: true,
