@@ -450,7 +450,9 @@ visibility: hidden;}
   margin-left: 10px;
   margin-top: 0px; }
 .po-content{
-    text-align: center;}
+    text-align: center;
+    padding-top: 20px;
+}
 
 .skill-content{
     text-align: center;
