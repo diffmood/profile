@@ -195,16 +195,16 @@
         -ms-flex-pack: center;
             justify-content: center;
   }
-  #portfolio .nav .nav-link {
+  #portfolio .nav .nav-links {
     font-weight: 700;
     color: #000;
   }
   
-  #portfolio .nav-pills .nav-link.active {
+  #portfolio .nav-pills .nav-links.active {
     position: relative;
     background-color: transparent;
   }
-  #portfolio .nav-pills .nav-link.active::after {
+  #portfolio .nav-pills .nav-links.active::after {
     position: absolute;
     content: "";
     top: 90%;
