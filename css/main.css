@@ -100,7 +100,7 @@
   
  
   .about-img {
-    width: 50% !important;
+    width: 60% !important;
   }
   
   .skills-bars .progress {
@@ -376,6 +376,7 @@
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
+      color: black;
   }
   
   #contact .contact-item-icon:hover span {
@@ -385,7 +386,9 @@
   #contact .section-title h3::after {
       width: 22%;
     }
-  
+    #contact .section-title h6 {
+     color: black;
+    }
   .form-info input{
       width: 49%;
   }
