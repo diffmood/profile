@@ -446,3 +446,9 @@ visibility: hidden;}
 .la-contents{
 text-align: center;
 visibility: hidden;}
+.pk-title {
+  margin-left: 10px;
+  margin-top: 0px; }
+.po-content{
+    text-align: center;}
+}
