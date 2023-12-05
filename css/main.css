@@ -386,7 +386,7 @@
   #contact .section-title h3::after {
       width: 22%;
     }
-    #contact .section-title h6 {
+    #contact .container h6 {
      color: black;
     }
   .form-info input{
