@@ -459,7 +459,9 @@ visibility: hidden;}
   
 @media only screen and (max-width: 600px) {
   .top {
-    height: 520px;}
+    height: 520px;
+    padding-top: 60px;
+    }
   .es {
    margin-right: 40px !important;
 width: 320px;
