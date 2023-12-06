@@ -11,7 +11,7 @@
       	font-family: 'Sintony', sans-serif;
 	color: #e5e5e5;
 	font-size: 12px;
-	background: #fff;
+	background: #c1d1d9;
 	line-height: 1;
     direction: rtl; 
   }
@@ -51,7 +51,12 @@
     font-size: 3.875rem;
     font-weight: 200;
   }
-  
+#contact {
+  background-color: #b0b6b9  
+}
+#team{
+    background-color: #c1d1d9
+}
   .header-icons span {
     width: 40px;
     height: 40px;
