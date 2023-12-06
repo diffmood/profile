@@ -427,8 +427,11 @@
 .header-icons button:hover {
   color: #000 !important;
   background-color: #fff !important;
+    border-color: #fff !important;
 }
 .header-icons button {
   color: #fff !important;
   background-color: rgb(13, 110, 253) !important;
+        border-color: rgb(13, 110, 253) !important;
+
 }
