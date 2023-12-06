@@ -89,7 +89,7 @@ color: cornsilk;
 }
 
 nav.menu {
-	background: linear-gradient(15deg, #d2d3d3 5%, #737e8d 85%);
+	background: linear-gradient(15deg, #737e8d 5%, #d2d3d3 85%);
 	position: relative;
 	min-height: 45px;
 	height: 100%;
