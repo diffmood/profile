@@ -140,7 +140,8 @@ border-radius: 15px;
  /*MediaQuerys*/
  @media (max-width: 600px) {
 .menu {
- display:none;
+    display: grid;
+position: relative !important;
  }
  .xs-menu li a {
 
@@ -149,6 +150,15 @@ border-radius: 15px;
  .xs-menu-cont{
  display:block ;
  }
+     .about-content {
+  padding-inline: 0 !important;
+  -webkit-margin-before: 5rem;
+  margin-block-start: -1rem;
+}
+     .about-img {
+  width: 90% !important;
+  padding-LEFT: 65px;
+}
  }
 
 
