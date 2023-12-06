@@ -553,6 +553,7 @@ display: table-column-group !important;
   position: absolute;
 margin-right: -10px;
       margin-top: 20px;
+      width: 400px;
 }
 .skill-content {
   margin-right: -110px;
@@ -586,5 +587,8 @@ margin-right: -10px;
     .languagues{
         width: 390px;
 margin-right: 20px;
+    }
+   .content {
+        width: 460px;
     }
 }
