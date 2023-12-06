@@ -11,7 +11,7 @@
       	font-family: 'Sintony', sans-serif;
 	color: #000;
 	font-size: 12px;
-	background: #c1d1d9;
+	background: #e5e9ec;
 	line-height: 1;
     direction: rtl; 
   }
@@ -29,7 +29,7 @@
     background-color: #f7f7f7 !important;
   }
   .bg-dark-grey {
-    background-color: #5b5b5b;
+    background-color: #005c9f;
   }
   /* Header */
   
@@ -55,7 +55,7 @@
   background-color: #b0b6b9 !important; 
 }
 #team{
-    background-color: #c1d1d9 !important;
+    background-color: #e5e9ec !important;
 }
   .header-icons span {
     width: 40px;
