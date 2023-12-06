@@ -60,7 +60,8 @@
   .header-icons span {
     width: 40px;
     height: 40px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color:  rgba(110, 110, 110, 0.45);
+      color: #fff;
   }
   
   /* Nav bar */
