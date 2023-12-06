@@ -492,10 +492,6 @@ title {
   .info {
     width: 95%;
   }
-img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;}
   .url {
     padding-left: 0;
   }
@@ -591,4 +587,8 @@ margin-right: 20px;
    .content {
         width: 460px;
     }
+   .ph {
+  width: 110px;
+  height: 110px;
+}
 }
