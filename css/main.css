@@ -113,13 +113,13 @@
     background-color: #f7f7f7;
   }
   .skills-bars .progress:nth-child(1) .progress-bar {
-    width: 95%;
+    width: 25%;
   }
   .skills-bars .progress:nth-child(2) .progress-bar {
-    width: 80%;
+    width: 25%;
   }
   .skills-bars .progress:nth-child(3) > .progress-bar {
-    width: 85%;
+    width: 25%;
   }
   
   .skills-bars .progress-bar span:nth-of-type(1) {
