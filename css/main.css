@@ -9,7 +9,7 @@
   body {
     font-family: var(--poppins);
       	font-family: 'Sintony', sans-serif;
-	color: #e5e5e5;
+	color: #000;
 	font-size: 12px;
 	background: #c1d1d9;
 	line-height: 1;
@@ -400,7 +400,7 @@
   }
   
   .form-control{
-      background-color:#F4F4F4 ;
+      background-color:#DCDCDC;
       font-size: 14px;
       font-weight: 400;
       border: none;
