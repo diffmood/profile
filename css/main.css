@@ -131,7 +131,7 @@
   
   .skills-bars .progress-bar span:nth-of-type(1) {
     font-size: 0.8125rem;
-    font-family: var(--montserrat);
+    font-family: 'Droid Arabic Kufi', sans-serif;
   }
   .about-buttons button {
     font-size: 0.8125rem;
