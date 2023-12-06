@@ -456,5 +456,86 @@ visibility: hidden;}
 
 .skill-content{
     text-align: center;
+  
+@media only screen and (max-width: 600px) {
+  .top {
+    height: 520px;}
+  .es {
+    margin-left: 0px !important;}
+  
+  .top-content {
+    flex-direction: column;
+    text-align: center;
+    height: 80% !important;
+  }
+
+  .photo,
+  .info {
+    width: 95%;
+  }
+img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;}
+  .url {
+    padding-left: 0;
+  }
+  .left {
+  display: table !important;
+  width: 49% !important;
+  height: 610px !important;
+}
+.con-title {
+  width: 320px !important;
+  height: 50px;
+  font-weight: 900;
+  font-size: 20px;
+  color: #0078ae;
+  margin-right: 30px;
+  margin-top: 10px !important;
+  padding-top: 5px !important;
+  border-bottom: solid 1px #618291;
+}
+  .ex-con-left {
+display: table-column-group !important;
+    width: 50px;
+  height: 230px;
+  margin-left: -20px !important;
+}
+  .ex-con-right {
+  display: inline-block;
+    width: 280px !important;
+  }
+  .education{
+padding-top: 50px;
+}
+  .ed-con-left {
     
+display: table-column-group !important;
+    width: 50px;
+  height: 230px;
+  margin-left: -20px !important;
+  }
+  .la-content {
+  text-align: center;
+  display: unset;
+}
+  .skill-con-right {
+  display: inline !important;
+  width: 230px;
+  height: 130px;
+  margin-top: 20px !important;
+}
+  .portfolio {
+  height: 200px;
+  padding-top: 100px;
+}
+  .po-content {
+  position: absolute;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+.skill-content {
+  margin-right: 70px;
+}
 }
