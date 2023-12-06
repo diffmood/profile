@@ -52,10 +52,10 @@
     font-weight: 200;
   }
 #contact {
-  background-color: #b0b6b9  
+  background-color: #b0b6b9 !important; 
 }
 #team{
-    background-color: #c1d1d9
+    background-color: #c1d1d9 !important;
 }
   .header-icons span {
     width: 40px;
