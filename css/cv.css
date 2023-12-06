@@ -475,6 +475,8 @@ margin-right: -88px;
     height: 80% !important;
       width: 290px !important;
       width: 480px !important;
+      margin-right: 30px;
+
   }
 title {
   width: 420px;
@@ -519,7 +521,9 @@ display: table-column-group !important;
 }
   .ex-con-right {
   display: inline-block;
-    width: 280px !important;
+ width: 361px !important;
+margin-right: 50px;
+text-align: center;
   }
   .education{
 padding-top: 50px;
@@ -547,13 +551,13 @@ display: table-column-group !important;
 }
   .po-content {
   position: absolute;
-margin-right: -10px;
+margin-right: 25px;
       margin-top: 20px;
       width: 400px;
 }
 .skill-content {
-  margin-right: -110px;
-}
+margin-right: 20px;
+    }
     .title {
   width: 350px;
   height: 100px;
@@ -571,9 +575,11 @@ margin-right: -10px;
   display: unset;
 }
     .ed-con-right {
-  display: inline-block;
-  width: 370px;
-  height: 190px;
+display: inline-block;
+height: 190px;
+width: 361px !important;
+margin-right: 50px;
+text-align: center;
 }
     .max-width {
   width: 0px;
@@ -581,8 +587,8 @@ margin-right: -10px;
   margin-left: 0PX;
 }
     .languagues{
-        width: 390px;
-margin-right: 20px;
+        width: 370px;
+margin-right: 50px;
     }
    .content {
         width: 460px;
@@ -591,4 +597,8 @@ margin-right: 20px;
   width: 110px;
   height: 110px;
 }
+    .la-title {
+  margin-left: 10px;
+        margin-right: -10px !important;
+    }
 }
