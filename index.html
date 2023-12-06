@@ -138,6 +138,7 @@
                 </div>
                 <div class="about-buttons my-5">
                   <button
+                    id="downloadButton"
                     type="button"
                     class="btn btn-outline-light py-2 px-4 bg-black"
                   >
@@ -788,6 +789,30 @@
         <small> حقوق النسح محفوظة © لدى <span class="text-light"> عبدالرحمن </span> حميع الحقوق محفوظة </small>
        </p></div>
     </footer>
+    <script>
+document.getElementById('downloadButton').addEventListener('click', function() {
+  // Define the file URL
+  var fileUrl = './assets/images/Cv_educator_2024.pdf';  // Replace with the actual path to your file
+
+  // Create a link element
+  var link = document.createElement('a');
+
+  // Set the href attribute to the file URL
+  link.href = fileUrl;
+
+  // Set the download attribute to the desired file name
+  link.download = 'Cv_educator_2024.pdf';  // Replace with the desired file name
+
+  // Append the link to the document
+  document.body.appendChild(link);
+
+  // Trigger a click on the link to start the download
+  link.click();
+
+  // Remove the link from the document
+  document.body.removeChild(link);
+});
+</script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 
     <script src="./js/bootstrap.bundle.min.js"></script>
