@@ -580,7 +580,7 @@ margin-right: -10px;
 }
     .max-width {
   width: 0px;
-  margin-right: auto;
-  margin-left: auto;
+  margin-right: 0PX;
+  margin-left: 0PX;
 }
 }
