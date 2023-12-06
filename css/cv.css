@@ -551,8 +551,8 @@ display: table-column-group !important;
 }
   .po-content {
   position: absolute;
-  margin-right: 40px;
-  margin-top: 20px;
+margin-right: -10px;
+      margin-top: 20px;
 }
 .skill-content {
   margin-right: -110px;
@@ -572,5 +572,10 @@ display: table-column-group !important;
     .photo, .info {
   width: 45%;
   display: unset;
+}
+    .ed-con-right {
+  display: inline-block;
+  width: 370px;
+  height: 190px;
 }
 }
