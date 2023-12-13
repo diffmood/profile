@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./assets/images/ic.png" />
+    <link rel="stylesheet" href="./css/all.min.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+         <link rel="stylesheet" href="./css/nav1.css" />
+    <link rel="stylesheet" href="./css/media.css" />
+      	<link href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css' rel='stylesheet' type='text/css'>
+    	<link href='https://fonts.googleapis.com/css?family=Sintony:400,700&subset=latin-ext' rel='stylesheet' type='text/css'>
+      <link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+<!--Font-awsome-->
+<!--		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+      
+    <title>عبدالرحمن</title>
+  </head>
+          <style>
+    /* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #526882; /* Navy Blue */
+  color: #fff; /* Change text color to white */
+}
+
+/* Search Container Styles */
+#search-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#food-name {
+  width: 200px;
+  padding: 8px;
+  box-sizing: border-box;
+  text-align: right; /* Align input text to the right for Arabic */
+}
+
+#search-btn {
+  padding: 10px 15px;
+  background-color: #64b5f6; /* Light Blue */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#search-btn:hover {
+  background-color: #1976d2; /* Darker Blue on Hover */
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  direction: rtl; /* Right-to-left direction for Arabic */
+}
+
+th, td {
+  padding: 12px;
+  text-align: right;
+  border-bottom: 1px solid #4a9ad5; /* Light Gray */
+}
+
+th {
+  background-color: #2196f3; /* Light Blue */
+  color: #fff;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 600px) {
+  th, td {
+    font-size: 14px;
+  }
+
+  input[type="number"] {
+    width: 30px;
+  }
+
+  button {
+    padding: 8px 12px;
+  }
+}
+
+/* Additional Styles for Specific Elements */
+h2 {
+  text-align: center;
+  color: #fff;
+}
+
+.food-item-add {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#totals {
+  display: table;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+    </style>      
+  <body data-bs-spy="scroll" data-bs-target="#navbar">
+  <div id="search-container">
+  <input id="food-name" type="text" placeholder="أدخل اسم الطعام">
+  <button id="search-btn">ابحث</button>
+</div>
+
+<!-- Search Results Table -->
+<table id="results-table">
+  <thead>
+    <tr>
+      <th>اسم الطعام</th>
+      <th>الوحدة</th>
+      <th>الطاقة (سعره حرارية)</th>
+      <th>الدهون</th>
+      <th>البروتين</th>
+      <th>الكربوهيدرات</th>
+      <th>الكمية</th>
+      <th>الإجراء</th>
+    </tr>
+  </thead>
+  <tbody id="results-body"></tbody>
+</table>
+
+<!-- Selected Foods Table -->
+<h2>الأطعمة المختارة</h2>
+<table id="selected-foods-table">
+  <thead>
+    <tr>
+      <th>اسم الطعام</th>
+      <th>الكمية</th>
+      <th>السعرات الحرارية</th>
+      <th>الدهون</th>
+      <th>البروتين</th>
+    </tr>
+  </thead>
+  <tbody id="selected-foods-body"></tbody>
+</table>
+
+<!-- Totals Table -->
+<h2>الإجمالي</h2>
+<table id="totals">
+  <thead>
+    <tr>
+      <th>الإجمالي</th>
+      <th>السعرات الحرارية</th>
+      <th>الدهون</th>
+      <th>البروتين</th>
+    </tr>
+  </thead>
+  <tbody id="totals-body"></tbody>
+</table>
+<script>
+    const apiKey = 'bb4mqJhfINMXKxacRXa4CDX9Y90TldsPW2rmlMue';
+const apiUrl = 'https://api.nal.usda.gov/fdc/v1/foods/search';
+
+document.getElementById('selected-foods-table').style.display = 'none';
+document.getElementById('totals').style.display = 'none';
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+  const foodName = document.getElementById('food-name').value;
+
+  const url = new URL(apiUrl);
+  const params = { query: foodName, api_key: apiKey };
+  url.search = new URLSearchParams(params).toString();
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const resultsTable = document.getElementById('results-table');
+      resultsTable.style.display = 'table'; // Make the results table visible
+
+      const resultsBody = document.getElementById('results-body');
+      resultsBody.innerHTML = '';
+
+      data.foods.forEach(food => {
+        const { description, fdcId, servingSize, foodNutrients } = food;
+
+        const calories = foodNutrients.find(nutrient => nutrient.nutrientId === 1008)?.value || 0;
+        const fat = foodNutrients.find(nutrient => nutrient.nutrientId === 1004)?.value || 0;
+        const protein = foodNutrients.find(nutrient => nutrient.nutrientId === 1003)?.value || 0;
+        const carbohydrates = foodNutrients.find(nutrient => nutrient.nutrientId === 1005)?.value || 0;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${description}</td>
+          <td>${servingSize}</td>
+          <td>${calories}</td>
+          <td>${fat}</td>
+          <td>${protein}</td>
+          <td>${carbohydrates}</td>
+          <td><input type="number" id="amount-${fdcId}" placeholder="Enter amount"></td>
+          <td><button class="food-item-add" data-food-id="${fdcId}">Add</button></td>
+        `;
+        resultsBody.appendChild(row);
+      });
+
+      // Add click event listener to the "Add" buttons
+      const addButtons = document.querySelectorAll('.food-item-add');
+      addButtons.forEach(button => {
+        button.addEventListener('click', handleAddFood);
+      });
+
+      // Make the selected foods table and totals visible
+      document.getElementById('selected-foods-table').style.display = 'table';
+      document.getElementById('totals').style.display = 'table';
+    })
+    .catch(error => console.error(error));
+}
+
+function handleAddFood(e) {
+  const foodId = e.target.getAttribute('data-food-id');
+  const amountInput = document.getElementById(`amount-${foodId}`);
+  const amount = amountInput.value;
+
+  if (amount > 0) {
+    // Extract additional information from the selected food
+    const selectedFoodRow = e.target.parentNode.parentNode;
+    const foodName = selectedFoodRow.querySelector('td:first-child').textContent;
+    const selectedFoodRowData = {
+      name: foodName,
+      amount: amount,
+      fat: selectedFoodRow.querySelector('td:nth-child(4)').textContent,
+      protein: selectedFoodRow.querySelector('td:nth-child(3)').textContent,
+      calories: selectedFoodRow.querySelector('td:nth-child(5)').textContent,
+    };
+
+    // Create a row for the selected food
+    const selectedFoodsBody = document.getElementById('selected-foods-body');
+    const selectedFoodRowElement = document.createElement('tr');
+    selectedFoodRowElement.innerHTML = `
+      <td>${selectedFoodRowData.name}</td>
+      <td>${selectedFoodRowData.amount}</td>
+      <td>${selectedFoodRowData.calories}</td>
+      <td>${selectedFoodRowData.fat}</td>
+      <td>${selectedFoodRowData.protein}</td>
+    `;
+    selectedFoodsBody.appendChild(selectedFoodRowElement);
+
+    // Clear the amount input
+    amountInput.value = '';
+
+    // Update Totals
+    updateTotals();
+  }
+}
+
+function updateTotals() {
+  const selectedFoodsRows = document.querySelectorAll('#selected-foods-body tr');
+  let totalCalories = 0;
+  let totalFat = 0;
+  let totalProtein = 0;
+
+  selectedFoodsRows.forEach(row => {
+    totalCalories += parseFloat(row.querySelector('td:nth-child(3)').textContent);
+    totalFat += parseFloat(row.querySelector('td:nth-child(4)').textContent);
+    totalProtein += parseFloat(row.querySelector('td:nth-child(5)').textContent);
+  });
+
+  const totalsBody = document.getElementById('totals-body');
+  totalsBody.innerHTML = `
+    <tr>
+      <td>Total</td>
+      <td>${totalCalories.toFixed(2)}</td>
+      <td>${totalFat.toFixed(2)}</td>
+      <td>${totalProtein.toFixed(2)}</td>
+    </tr>
+  `;
+}
+
+document.getElementById('search-btn').addEventListener('click', handleSubmit);
+
+      </script>
+    <footer id="footer " class="footer">
+      <div class="footer-content text-center d-flex justify-content-center align-items-center py-3"><p class="text-secondary ">
+        <small> حقوق النسح محفوظة © لدى <span class="text-light"> عبدالرحمن </span> حميع الحقوق محفوظة </small>
+       </p></div>
+    </footer>
+    </body>
+</html>
