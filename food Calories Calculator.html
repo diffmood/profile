@@ -21,20 +21,20 @@
     <title>عبدالرحمن</title>
   </head>
           <style>
-    /* Global Styles */
+   /* Global Styles */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #526882; /* Navy Blue */
-  color: #fff; /* Change text color to white */
+  background-color: #b2bfce; /* Navy Blue */
+  color: #1a303d; /* Change text color to white */
+ 
 }
 
 /* Search Container Styles */
 #search-container {
   text-align: center;
   margin: 20px 0;
-    color: black;
 }
 
 #food-name {
@@ -42,15 +42,13 @@ body {
   padding: 8px;
   box-sizing: border-box;
   text-align: right; /* Align input text to the right for Arabic */
-    color: black;
 }
 
 #search-btn {
   padding: 10px 15px;
-  background-color: #64b5f6; /* Light Blue */
+  background-color: #1b313e; /* Light Blue */
   color: #fff;
-  border: none;
-  border-radius: 4px;
+  
   cursor: pointer;
 }
 
@@ -67,7 +65,6 @@ table {
   border-radius: 8px;
   overflow: hidden;
   direction: rtl; /* Right-to-left direction for Arabic */
-    color: black;
 }
 
 th, td {
@@ -77,7 +74,7 @@ th, td {
 }
 
 th {
-  background-color: #2196f3; /* Light Blue */
+  background-color: #1b313e; /* Light Blue */
   color: #fff;
 }
 
@@ -99,7 +96,7 @@ th {
 /* Additional Styles for Specific Elements */
 h2 {
   text-align: center;
-  color: #fff;
+  color: #1a303d;
 }
 
 .food-item-add {
@@ -120,65 +117,129 @@ h2 {
   border-radius: 8px;
   overflow: hidden;
 }
+.image {
+      float: right;
+      margin-right: 20px; /* Adjust the margin as needed */
+    }
+p {
+   direction: rtl; 
+}
 
     </style>      
   <body data-bs-spy="scroll" data-bs-target="#navbar">
-  <div id="search-container">
-  <input id="food-name" type="text" placeholder="أدخل اسم الطعام">
-  <button id="search-btn">ابحث</button>
+
+  <div style="margin-top:25px;font-weight:bold;texxxt-decoration:none;">
+   	<nav class="menu">
+				<ul>
+					<li class="active">
+						<a href="./index.html">الرئيسية</a>
+					</li>
+					
+					<li style="display: none;">
+						<a href="#services">الخدمات</a>
+					</li>
+					<li>
+						<a href="#">الشركاء</a>
+					</li>
+					<li>
+						<a href="./cv1.html">السيرة الذاتية</a>
+					</li>
+					<li>
+						<a href="#portfolio">المشاريع</a>
+
+					</li>
+					<li>
+						<a target="_blank" href="#contact">تواصل معي</a>
+					</li>
+         <li style="float:left;">
+           <a href="https://gtherh.wordpress.com/"><i class="fa-brands fa-wordpress" style="color: #003cc9;font-size: x-large;padding-top: 10px;"></i></a>
+          </li>
+                    <li style="float:left; margin-left: -10px;
+background-color: #5f82a0;">
+           <a href="./EN.html"><span>EN</span></a>
+          </li>
+
+				</ul>
+			</nav>
+		</div>
+<div class="container mx-auto p-8">
+  <div class="grid grid-cols-2">
+  
+
+    <div class="col-span-2 bg-cover p-20">
+      <!-- Content for Column 2 -->
+       <img src="https://i.imgur.com/oUg6smO.png" alt="Column 1 Image" class="image w-16 h-16 object-cover "><p>
+       حاسبة السعرات الحرارية الغذائية هي أداة مفيدة مصممة لمساعدة الأفراد على إدارة مدخولهم الغذائي من خلال توفير معلومات حول المحتوى السعري للأطعمة المختلفة. <br> يعمل هذا النوع من الآلات الحاسبة كمورد قيم لأولئك الذين يتطلعون إلى مراقبة استهلاكهم للسعرات الحرارية والتحكم فيه، سواء لإدارة الوزن أو أهداف اللياقة البدنية أو الصحة العامة.
+      </p>
+    </div>
+
+    <div class="bg-sprite bg-cover col-span-2 p-4">
+      <!-- Content for Column 3 and 4 merged -->
+      <div id="search-container">
+        <input id="food-name" type="text" placeholder="أدخل اسم الطعام" class="rounded-xl px-4 py-2 border border-gray-300">
+        <button id="search-btn" class="rounded-xl px-4 py-2 border border-gray-300">ابحث</button>
+      </div>
+
+      <!-- Search Results Table -->
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th>اسم الطعام</th>
+            <th>الوحدة</th>
+            <th>الطاقة (سعره حرارية)</th>
+            <th>الدهون</th>
+            <th>البروتين</th>
+            <th>الكربوهيدرات</th>
+            <th>الكمية</th>
+            <th>الإجراء</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+
+      <!-- Selected Foods Table -->
+      <h2 id="dynamic-heading">الأطعمة المختارة</h2>
+      <table id="selected-foods-table">
+        <thead>
+          <tr>
+            <th>اسم الطعام</th>
+            <th>الكمية</th>
+            <th>السعرات الحرارية</th>
+            <th>الدهون</th>
+            <th>البروتين</th>
+          </tr>
+        </thead>
+        <tbody id="selected-foods-body"></tbody>
+      </table>
+
+      <!-- Totals Table -->
+      <h2 id="dynami-heading">الإجمالي</h2>
+      <table id="totals">
+        <thead>
+          <tr>
+            <th>الإجمالي</th>
+            <th>السعرات الحرارية</th>
+            <th>الدهون</th>
+            <th>البروتين</th>
+          </tr>
+        </thead>
+        <tbody id="totals-body"></tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
-<!-- Search Results Table -->
-<table id="results-table">
-  <thead>
-    <tr>
-      <th>اسم الطعام</th>
-      <th>الوحدة</th>
-      <th>الطاقة (سعره حرارية)</th>
-      <th>الدهون</th>
-      <th>البروتين</th>
-      <th>الكربوهيدرات</th>
-      <th>الكمية</th>
-      <th>الإجراء</th>
-    </tr>
-  </thead>
-  <tbody id="results-body"></tbody>
-</table>
 
-<!-- Selected Foods Table -->
-<h2>الأطعمة المختارة</h2>
-<table id="selected-foods-table">
-  <thead>
-    <tr>
-      <th>اسم الطعام</th>
-      <th>الكمية</th>
-      <th>السعرات الحرارية</th>
-      <th>الدهون</th>
-      <th>البروتين</th>
-    </tr>
-  </thead>
-  <tbody id="selected-foods-body"></tbody>
-</table>
-
-<!-- Totals Table -->
-<h2>الإجمالي</h2>
-<table id="totals">
-  <thead>
-    <tr>
-      <th>الإجمالي</th>
-      <th>السعرات الحرارية</th>
-      <th>الدهون</th>
-      <th>البروتين</th>
-    </tr>
-  </thead>
-  <tbody id="totals-body"></tbody>
-</table>
 <script>
-    const apiKey = 'bb4mqJhfINMXKxacRXa4CDX9Y90TldsPW2rmlMue';
+   const apiKey = 'bb4mqJhfINMXKxacRXa4CDX9Y90TldsPW2rmlMue';
 const apiUrl = 'https://api.nal.usda.gov/fdc/v1/foods/search';
 
 document.getElementById('selected-foods-table').style.display = 'none';
 document.getElementById('totals').style.display = 'none';
+
+document.getElementById('dynamic-heading').style.display = 'none';
+
+document.getElementById('dynami-heading').style.display = 'none';
 
 function handleSubmit(e) {
   e.preventDefault();
