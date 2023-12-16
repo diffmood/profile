@@ -6,7 +6,7 @@
     <title>عداد تحدي الكتابة</title>
 </head>
     <style>
-   /* Variable Declarations */
+ /* Variable Declarations */
 :root {
   --font-family: 'Varela Round', sans-serif;
   --font-size: 16px;
@@ -69,12 +69,11 @@ body[data-timer-type='long-break'] {
 }
 
 /* Progress Styles */
-#progress-bar {
-height: 5px;
+.progress {
+  height: 5px;
   background-color: #61dafb; /* Choose a color for your progress bar */
   width: 0; /* Initial width is 0 */
   transition: width 1s linear; /* Smooth transition for width changes */
-}
 }
 
 /* Inner Styles */
@@ -84,7 +83,7 @@ height: 5px;
 
 /* Timer Styles */
 .timer {
- background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.5em;
   padding: 2em;
 }
@@ -109,7 +108,7 @@ height: 5px;
 }
 
 .timer-button-active {
- background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.15);
   font-weight: 700;
 }
 
@@ -151,6 +150,12 @@ height: 5px;
 .stop.visible {
   display: inline-block;
 }
+.progress-bar {
+  height: 5px;
+  background-color: #61dafb; /* Choose a color for your progress bar */
+  width: 0; /* Initial width is 0 */
+  transition: width 1s linear; /* Smooth transition for width changes */
+}
 
     </style>
 <body>
@@ -160,25 +165,26 @@ height: 5px;
         </a>
         <p>تحدي الكتابة فترة المغرب</p>
     </header>
+ <main class="main">
+    <div class="progress">
+      <div class="inner">
+        <section class="timer">
+          <div class="timer-buttons">
+            <button class="timer-button timer-button-active" id="pomodoro">Pomodoro</button>
+            <button class="timer-button" id="short-break">Short Break</button>
+            <button class="timer-button" id="long-break">Long Break</button>
+          </div>
+          <h6 class="time" id="time">
+            <span id="timer-display"></span>
+          </h6>
+          <div class="progress-bar" id="progress-bar"></div>
+          <button class="start" id="start">START</button>
+          <!-- <button class="stop" id="stop">STOP</button> -->
+        </section>
+      </div>
+    </div>
+  </main>
 
-    <main class="main">
-        <div id="progress-bar">
-            <div class="inner">
-                <section class="timer">
-                    <div class="timer-buttons">
-                        <button class="timer-button timer-button-active" id="pomodoro">Pomodoro</button>
-                        <button class="timer-button" id="short-break">Short Break</button>
-                        <button class="timer-button" id="long-break">Long Break</button>
-                    </div>
-                    <h6 class="time" id="time">
-                        <span id="timer-display"></span>
-                    </h6>
-                    <button class="start" id="start">START</button>
-                    <!-- <button class="stop" id="stop">STOP</button> -->
-                </section>
-            </div>
-        </div>
-    </main>
     <script>
 const colors = {
   blue: '#457ca3',
@@ -344,6 +350,7 @@ longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 // Initial setup for the first step (Pomodoro)
 initializeTimer();
+
     </script>
 </body>
 </html>
