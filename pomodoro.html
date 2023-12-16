@@ -358,16 +358,19 @@ function longBreakButtonClick() {
 }
         
 function setActiveButton() {
+  // Remove the 'timer-button-active' class from any currently active button
   const activeButton = document.querySelector('.timer-buttons .timer-button-active');
   if (activeButton) {
     activeButton.classList.remove('timer-button-active');
   }
 
-  if (document.body.dataset.timerType.includes('Pomodoro')) {
+  // Set the active button based on the current timer type
+  const timerType = document.body.dataset.timerType;
+  if (timerType.includes('Pomodoro')) {
     pomodoroButton.classList.add('timer-button-active');
-  } else if (document.body.dataset.timerType === 'short-break') {
+  } else if (timerType === 'short-break') {
     shortBreakButton.classList.add('timer-button-active');
-  } else if (document.body.dataset.timerType === 'long-break') {
+  } else if (timerType === 'long-break') {
     longBreakButton.classList.add('timer-button-active');
   }
 }
