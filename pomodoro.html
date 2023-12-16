@@ -177,31 +177,23 @@ body[data-timer-type='long-break'] {
         </div>
     </main>
     <script>
-    interface TimerStep {
-  duration: number;
-  backgroundColor: string;
-  text: string;
-  type?: string;
-  backgroundImageUrl?: string;
-}
-
-const colors = {
+ const colors = {
   blue: '#457ca3',
   red: '#d95550',
   teal: '#4c9195',
 };
 
-let timer: NodeJS.Timeout | null;
-let minutes: number;
-let seconds: number;
+let timer = null;
+let minutes;
+let seconds;
 
-const timeOutput = document.getElementById('time')!;
-const startButton = document.getElementById('start')!;
-const pomodoroButton = document.getElementById('pomodoro')!;
-const shortBreakButton = document.getElementById('short-break')!;
-const longBreakButton = document.getElementById('long-break')!;
+const timeOutput = document.getElementById('time');
+const startButton = document.getElementById('start');
+const pomodoroButton = document.getElementById('pomodoro');
+const shortBreakButton = document.getElementById('short-break');
+const longBreakButton = document.getElementById('long-break');
 
-const pomodoroTimers: TimerStep[] = [
+const pomodoroTimers = [
   { duration: 0, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
   { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
   { duration: 0, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
@@ -216,7 +208,7 @@ const pomodoroTimers: TimerStep[] = [
 let currentStepIndex = 0;
 
 function initializeTimer() {
-  clearInterval(timer!);
+  clearInterval(timer);
 
   const currentStep = pomodoroTimers[currentStepIndex];
   minutes = currentStep.duration;
@@ -235,17 +227,17 @@ function updateTimeDisplay() {
   timeOutput.innerHTML = text;
 }
 
-function createTimeString(minutes: number, seconds: number) {
+function createTimeString(minutes, seconds) {
   return `${numToPaddedString(minutes)}:${numToPaddedString(seconds)}`;
 }
 
-function numToPaddedString(number: number) {
+function numToPaddedString(number) {
   return number.toString().padStart(2, '0');
 }
 
 function tick() {
   if (minutes === 0 && seconds === 0) {
-    clearInterval(timer!);
+    clearInterval(timer);
     initiateNextStep();
     return;
   }
@@ -265,7 +257,7 @@ function initiateNextStep() {
 
   if (currentStepIndex === 0) {
     // Stop the loop if it's the last step (after long break)
-    clearInterval(timer!);
+    clearInterval(timer);
     timer = null;
     return;
   }
@@ -284,7 +276,7 @@ function startNextStep() {
   setActiveButton();
 }
 
-function setBodyBackgroundColor(backgroundColor: string, backgroundImageUrl?: string) {
+function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
   document.body.style.backgroundColor = backgroundColor;
   if (backgroundImageUrl) {
     document.body.style.backgroundImage = `url(${backgroundImageUrl})`;
@@ -296,7 +288,7 @@ function setBodyBackgroundColor(backgroundColor: string, backgroundImageUrl?: st
 }
 
 function setActiveButton() {
-  const activeButton = document.querySelector('.timer-buttons .timer-button-active') as HTMLElement;
+  const activeButton = document.querySelector('.timer-buttons .timer-button-active');
   if (activeButton) {
     activeButton.classList.remove('timer-button-active');
   }
@@ -316,7 +308,7 @@ function startTimer() {
 
 function pausePlay() {
   if (timer) {
-    clearInterval(timer!);
+    clearInterval(timer);
     timer = null;
     startButton.innerHTML = 'START';
   } else {
