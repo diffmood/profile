@@ -6,39 +6,39 @@
     <title>Your Document Title</title>
 </head>
     <style>
-        $font-family: 'Varela Round', sans-serif;
-$font-size: 16px;
-$font-weight: 300;
-$font: $font-weight $font-size $font-family;
+   /* Variable Declarations */
+:root {
+  --font-family: 'Varela Round', sans-serif;
+  --font-size: 16px;
+  --font-weight: 300;
+  --font: var(--font-weight) var(--font-size) var(--font-family);
 
-$black: #000;
-$blue: #457ca3;
-$red: #d95550;
-$teal: #4c9195;
-$white: #fff;
+  --black: #000;
+  --blue: #457ca3;
+  --red: #d95550;
+  --teal: #4c9195;
+  --white: #fff;
+}
 
+/* HTML Styles */
 html {
-  font: $font;
+  font: var(--font);
 }
 
+/* Body Styles */
 body {
-  background-color: $red;
+  background-color: var(--red);
   margin: 0;
-  transition: .3s background-color;
-  
-  &[data-timer-type='pomodoro'] {
-    background-color: none;
-  }
-  
-  &[data-timer-type='short-break'] {
-    background-color: none;
-  }
-  
-  &[data-timer-type='long-break'] {
-    background-color: none;
-  }
+  transition: 0.3s background-color;
 }
 
+body[data-timer-type='pomodoro'],
+body[data-timer-type='short-break'],
+body[data-timer-type='long-break'] {
+  background-color: none;
+}
+
+/* Header Styles */
 .header {
   display: flex;
   height: 3.75em;
@@ -46,99 +46,109 @@ body {
   line-height: 3.75em;
   margin: 0 auto;
   max-width: 38.75em;
-  padding: .625em .75em;
+  padding: 0.625em 0.75em;
 }
 
+/* Logo Styles */
 .logo {
-  color: $white;
+  color: var(--white);
   font-size: 1.25em;
   font-weight: 700;
   text-decoration: none;
-  
-  & img {
-    height: 1em;
-    margin-right: .25rem;
-  }
 }
 
+.logo img {
+  height: 1em;
+  margin-right: 0.25rem;
+}
+
+/* Main Styles */
 .main {
   margin: 0 auto;
   max-width: 38.75em;
 }
 
+/* Progress Styles */
 .progress {
-  background-color: rgba($black,.1);
+  background-color: rgba(var(--black), 0.1);
   height: 1px;
 }
 
+/* Inner Styles */
 .inner {
   padding: 2em 4.375em;
 }
 
+/* Timer Styles */
 .timer {
-  background-color: rgba($white, .1);
-  border-radius: .5em;
+  background-color: rgba(var(--white), 0.1);
+  border-radius: 0.5em;
   padding: 2em;
-  
-  &-buttons {
-    display: flex;
-    gap: .5em;
-    justify-content: center;
-  }
-  
-  &-button {
-    background-color: transparent;
-    border: 0;
-    border-radius: .25em;
-    color: $white;
-    cursor: pointer;
-    font: $font;
-    font-weight: 300;
-    outline: 0;
-    padding: .5em 1em;
-    
-    &-active {
-      background-color: rgba($black, .15);
-      font-weight: 700;
-    }
-  }
 }
 
+/* Timer Button Styles */
+.timer-buttons {
+  display: flex;
+  gap: 0.5em;
+  justify-content: center;
+}
+
+.timer-button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0.25em;
+  color: var(--white);
+  cursor: pointer;
+  font: var(--font);
+  font-weight: 300;
+  outline: 0;
+  padding: 0.5em 1em;
+}
+
+.timer-button-active {
+  background-color: rgba(var(--black), 0.15);
+  font-weight: 700;
+}
+
+/* Time Styles */
 .time {
-  color: $white;
+  color: var(--white);
   font-size: 7.5em;
   margin: 0;
   margin-top: 1.25rem;
   text-align: center;
 }
 
+/* Start Button Styles */
 .start {
-  background-color: $white;
+  background-color: var(--white);
   border: 0;
-  border-radius: .25em;
-  color: $red;
+  border-radius: 0.25em;
+  color: var(--red);
   cursor: pointer;
   display: block;
-  font: $font;
+  font: var(--font);
   font-size: 1.375em;
   font-weight: 700;
   margin: 1.25rem auto 0 auto;
   min-width: 8em;
   outline: 0;
-  padding: .5em 1em;
-  transition: .3s color;
+  padding: 0.5em 1em;
+  transition: 0.3s color;
 }
 
+/* Stop Button Styles */
 .stop {
-  //display: none;
+  /*display: none;*/
   display: inline-block;
   position: absolute;
   right: 0;
-  
-  &.visible {
-    display: inline-block;
-  }
 }
+
+.stop.visible {
+  display: inline-block;
+}
+
     </style>
 <body>
     <header class="header">
