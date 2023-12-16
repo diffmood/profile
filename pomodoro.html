@@ -30,6 +30,7 @@ body {
   background-color: var(--red);
   margin: 0;
   transition: 0.3s background-color;
+      direction: rtl;
 }
 
 body[data-timer-type='pomodoro'],
@@ -42,7 +43,6 @@ body[data-timer-type='long-break'] {
 .header {
   display: flex;
   height: 3.75em;
-  justify-content: space-between;
   line-height: 3.75em;
   margin: 0 auto;
   max-width: 38.75em;
@@ -154,14 +154,36 @@ body[data-timer-type='long-break'] {
   width: 0; /* Initial width is 0 */
   transition: width 1s linear; /* Smooth transition for width changes */
 }
-
+        .tite{
+color: var(--white);
+font-size: 23px;
+margin: 0;
+  margin-top: 0px;
+margin-top: 0px;
+margin-top: 1.25rem;
+text-align: center;
+position: sticky;
+font-weight: 700;        
+        }
+        #text-display{
+            color: var(--white);
+font-size: 23px;
+margin: 0;
+  margin-top: 0px;
+margin-top: 0px;
+margin-top: 0px;
+margin-top: 1.25rem;
+text-align: center;
+position: static;
+font-weight: 700;
+        }
     </style>
 <body>
     <header class="header">
         <a href="" class="logo">
             <img alt="" src="">
         </a>
-        <p>تحدي الكتابة فترة المغرب</p>
+        <p class="tite">تحدي الكتابة فترة المغرب</p>
     </header>
  <main class="main">
     <div class="progress">
@@ -169,14 +191,14 @@ body[data-timer-type='long-break'] {
       <div class="inner">
         <section class="timer">
           <div class="timer-buttons">
-            <button class="timer-button timer-button-active" id="pomodoro">Pomodoro</button>
-            <button class="timer-button" id="short-break">Short Break</button>
-            <button class="timer-button" id="long-break">Long Break</button>
+            <button class="timer-button timer-button-active" id="pomodoro">بمدورو</button>
+            <button class="timer-button" id="short-break">استراحة قصيرة</button>
+            <button class="timer-button" id="long-break">استراحة مطولة</button>
           </div>
           <h6 class="time" id="time">
             <span id="timer-display"></span>
           </h6>
-          <button class="start" id="start">START</button>
+          <button class="start" id="start">ابدء</button>
           <!-- <button class="stop" id="stop">STOP</button> -->
         </section>
           <p id="text-display"></p> <!-- Add this line -->
@@ -325,10 +347,10 @@ function pausePlay() {
   if (timer) {
     clearInterval(timer);
     timer = null;
-    startButton.innerHTML = 'START';
+    startButton.innerHTML = 'ابدء';
   } else {
     startTimer();
-    startButton.innerHTML = 'PAUSE';
+    startButton.innerHTML = 'توقف';
   }
 }
 
