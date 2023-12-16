@@ -177,7 +177,7 @@ background-color: rgba(0, 0, 0, 0.1);
         </div>
     </main>
     <script>
- const colors = {
+const colors = {
   blue: '#457ca3',
   red: '#d95550',
   teal: '#4c9195',
@@ -192,7 +192,7 @@ const startButton = document.getElementById('start');
 const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
-const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3'); // Replace 'path/to/alarm-sound.mp3' with the actual path to your alarm sound file
+const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
 
 const pomodoroTimers = [
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
@@ -207,9 +207,11 @@ const pomodoroTimers = [
 ];
 
 let currentStepIndex = 0;
+let timerStarted = false;
 
 function initializeTimer() {
   clearInterval(timer);
+  timerStarted = false;
 
   const currentStep = pomodoroTimers[currentStepIndex];
   minutes = currentStep.duration;
@@ -260,6 +262,7 @@ function initiateNextStep() {
   if (currentStepIndex === 0) {
     clearInterval(timer);
     timer = null;
+    timerStarted = false;
     return;
   }
 
@@ -273,7 +276,6 @@ function startNextStep() {
   startButton.style.color = currentStep.backgroundColor;
   startButton.innerHTML = 'START';
   initializeTimer();
-  startTimer();
   setActiveButton();
 }
 
@@ -305,6 +307,7 @@ function setActiveButton() {
 
 function startTimer() {
   timer = setInterval(tick, 1000);
+  timerStarted = true;
 }
 
 function pausePlay() {
@@ -319,15 +322,21 @@ function pausePlay() {
 }
 
 function pomodoroButtonClick() {
-  startNextStep();
+  if (!timerStarted) {
+    startNextStep();
+  }
 }
 
 function shortBreakButtonClick() {
-  startNextStep();
+  if (!timerStarted) {
+    startNextStep();
+  }
 }
 
 function longBreakButtonClick() {
-  startNextStep();
+  if (!timerStarted) {
+    startNextStep();
+  }
 }
 
 startButton.addEventListener('click', pausePlay, false);
@@ -337,7 +346,6 @@ longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 // Initial setup for the first step (Pomodoro)
 initializeTimer();
-
 
     </script>
 </body>
