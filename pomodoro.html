@@ -183,7 +183,7 @@ font-weight: 700;
         <a href="" class="logo">
             <img alt="" src="">
         </a>
-        <p class="tite">تحدي الكتابة فترة المغرب</p>
+        <p class="tite">تحدي الكتابة</p>
     </header>
  <main class="main">
     <div class="progress">
@@ -256,9 +256,10 @@ function initializeTimer() {
 function updateProgressBar() {
   const totalTimeInSeconds = pomodoroTimers[currentStepIndex].duration * 60;
   const elapsedSeconds = (pomodoroTimers[currentStepIndex].duration - minutes - 1) * 60 + (60 - seconds);
-  const progress = (elapsedSeconds / totalTimeInSeconds) * 100;
-  progressBar.style.width = 100 - progress + '%';
+  const progress = ((totalTimeInSeconds - elapsedSeconds) / totalTimeInSeconds) * 100;
+  progressBar.style.width = progress + '%';
 }
+
 
 
 function updateTimeDisplay() {
