@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Document Title</title>
+    <title>عداد تحدي الكتابة</title>
 </head>
     <style>
    /* Variable Declarations */
@@ -155,7 +155,7 @@ background-color: rgba(0, 0, 0, 0.1);
         <a href="" class="logo">
             <img alt="" src="">
         </a>
-        <p>تحدي الكتابة</p>
+        <p>تحدي الكتابة فترة المغرب</p>
     </header>
 
     <main class="main">
@@ -194,15 +194,15 @@ const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 
 const pomodoroTimers = [
-  { duration: 0, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
-  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { duration: 0, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
-  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { duration: 0, backgroundColor: colors.red, text: 'الجلسة الثالثة (Pomodoro 3)' },
-  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { duration: 0, backgroundColor: colors.red, text: 'الجلسة الرابعة (Pomodoro 4)' },
-  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { duration: 1, backgroundColor: colors.blue, text: 'انتهاء الفترة (Long Break)'},
+  { duration: 25, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
+  { duration: 5, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { duration: 25, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
+  { duration: 5, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { duration: 25, backgroundColor: colors.red, text: 'الجلسة الثالثة (Pomodoro 3)' },
+  { duration: 5, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { duration:25, backgroundColor: colors.red, text: 'الجلسة الرابعة (Pomodoro 4)' },
+  { duration: 5, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { duration: 5, backgroundColor: colors.blue, text: 'انتهاء الفترة (Long Break)'},
 ];
 
 let currentStepIndex = 0;
