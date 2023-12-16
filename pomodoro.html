@@ -324,21 +324,6 @@ function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
   }
 }
 
-function setActiveButton() {
-  const activeButton = document.querySelector('.timer-buttons .timer-button-active');
-  if (activeButton) {
-    activeButton.classList.remove('timer-button-active');
-  }
-
-  if (document.body.dataset.timerType.includes('Pomodoro')) {
-    pomodoroButton.classList.add('timer-button-active');
-  } else if (document.body.dataset.timerType === 'short-break') {
-    shortBreakButton.classList.add('timer-button-active');
-  } else if (document.body.dataset.timerType === 'long-break') {
-    longBreakButton.classList.add('timer-button-active');
-  }
-}
-
 function startTimer() {
   timer = setInterval(tick, 1000);
 }
@@ -369,6 +354,21 @@ function shortBreakButtonClick() {
 function longBreakButtonClick() {
   if (timer === null) {
     startNextStep();
+  }
+}
+        
+function setActiveButton() {
+  const activeButton = document.querySelector('.timer-buttons .timer-button-active');
+  if (activeButton) {
+    activeButton.classList.remove('timer-button-active');
+  }
+
+  if (document.body.dataset.timerType.includes('Pomodoro')) {
+    pomodoroButton.classList.add('timer-button-active');
+  } else if (document.body.dataset.timerType === 'short-break') {
+    shortBreakButton.classList.add('timer-button-active');
+  } else if (document.body.dataset.timerType === 'long-break') {
+    longBreakButton.classList.add('timer-button-active');
   }
 }
 
