@@ -201,6 +201,7 @@ const startButton = document.getElementById('start');
 const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
+const progressBar = document.getElementById('progress-bar');
 const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
 
 const pomodoroTimers = [
@@ -217,11 +218,17 @@ function initializeTimer() {
   const currentStep = pomodoroTimers[currentStepIndex];
   minutes = currentStep.duration;
   seconds = 0;
-
   updateTimeDisplay();
   setBodyBackgroundColor(currentStep.backgroundColor, currentStep.backgroundImageUrl);
   setActiveButton();
     updateProgressBar(); // Add this line
+}
+
+function updateProgressBar() {
+  const totalTimeInSeconds = pomodoroTimers[currentStepIndex].duration * 60;
+  const elapsedSeconds = (pomodoroTimers[currentStepIndex].duration - minutes - 1) * 60 + (60 - seconds);
+  const progress = (elapsedSeconds / totalTimeInSeconds) * 100;
+  progressBar.style.width = progress + '%';
 }
 
 function updateTimeDisplay() {
