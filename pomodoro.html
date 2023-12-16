@@ -207,7 +207,122 @@ font-weight: 700;
   </main>
 
     <script>
-// ...
+const colors = {
+  blue: '#457ca3',
+  red: '#d95550',
+  teal: '#4c9195',
+};
+
+let timer = null;
+let minutes;
+let seconds;
+
+const timeOutput = document.getElementById('time');
+const textDisplay = document.getElementById('text-display');
+const startButton = document.getElementById('start');
+const pomodoroButton = document.getElementById('pomodoro');
+const shortBreakButton = document.getElementById('short-break');
+const longBreakButton = document.getElementById('long-break');
+const progressBar = document.getElementById('progress-bar');
+const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
+
+const pomodoroTimers = [
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
+  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  // Add more timers as needed
+];
+
+let currentStepIndex = 0;
+
+function initializeTimer() {
+  clearInterval(timer);
+
+  const currentStep = pomodoroTimers[currentStepIndex];
+  minutes = currentStep.duration;
+  seconds = 0;
+  updateTimeDisplay();
+  setBodyBackgroundColor(currentStep.backgroundColor, currentStep.backgroundImageUrl);
+  setActiveButton();
+  updateProgressBar(); // Add this line
+}
+
+function updateProgressBar() {
+  const totalTimeInSeconds = pomodoroTimers[currentStepIndex].duration * 60;
+  const elapsedSeconds = (pomodoroTimers[currentStepIndex].duration - minutes - 1) * 60 + (60 - seconds);
+  const progress = ((totalTimeInSeconds - elapsedSeconds) / totalTimeInSeconds) * 100;
+  progressBar.style.width = progress + '%';
+}
+
+function updateTimeDisplay() {
+  const currentStep = pomodoroTimers[currentStepIndex];
+  const formattedTime = createTimeString(minutes, seconds);
+  const text = `<span style="font-size: 17px; margin-bottom: 5px;">${currentStep.text}</span>${formattedTime}`;
+
+  timeOutput.innerHTML = formattedTime;
+  textDisplay.innerHTML = currentStep.text;
+}
+
+function createTimeString(minutes, seconds) {
+  return `${numToPaddedString(minutes)}:${numToPaddedString(seconds)}`;
+}
+
+function numToPaddedString(number) {
+  return number.toString().padStart(2, '0');
+}
+
+function tick() {
+  if (minutes === 0 && seconds === 0) {
+    clearInterval(timer);
+    initiateNextStep();
+    alarmSound.play();
+    return;
+  }
+
+  seconds--;
+
+  if (seconds < 0) {
+    seconds = 59;
+    minutes--;
+  }
+
+  updateTimeDisplay();
+  updateProgressBar(); // Add this line
+}
+
+function initiateNextStep() {
+  currentStepIndex = (currentStepIndex + 1) % pomodoroTimers.length;
+
+  if (currentStepIndex === 0) {
+    clearInterval(timer);
+    timer = null;
+    setActiveButton();
+    return;
+  }
+
+  startNextStep();
+}
+
+function startNextStep() {
+  const currentStep = pomodoroTimers[currentStepIndex];
+  document.body.dataset.timerType = currentStep.type || '';
+  localStorage.setItem('activeTimerType', currentStep.type || '');
+  startButton.style.color = currentStep.backgroundColor;
+  startButton.innerHTML = 'ابدء';
+  initializeTimer();
+  startTimer();
+  setActiveButton();
+}
+
+function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
+  document.body.style.backgroundColor = backgroundColor;
+  if (backgroundImageUrl) {
+    document.body.style.backgroundImage = `url(${backgroundImageUrl})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+  } else {
+    document.body.style.backgroundImage = '';
+  }
+}
 
 function setActiveButton() {
   const activeButton = document.querySelector('.timer-buttons .timer-button-active');
@@ -221,6 +336,39 @@ function setActiveButton() {
     shortBreakButton.classList.add('timer-button-active');
   } else if (document.body.dataset.timerType === 'long-break') {
     longBreakButton.classList.add('timer-button-active');
+  }
+}
+
+function startTimer() {
+  timer = setInterval(tick, 1000);
+}
+
+function pausePlay() {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+    startButton.innerHTML = 'ابدء';
+  } else {
+    startTimer();
+    startButton.innerHTML = 'توقف';
+  }
+}
+
+function pomodoroButtonClick() {
+  if (timer === null) {
+    startNextStep();
+  }
+}
+
+function shortBreakButtonClick() {
+  if (timer === null) {
+    startNextStep();
+  }
+}
+
+function longBreakButtonClick() {
+  if (timer === null) {
+    startNextStep();
   }
 }
 
@@ -238,7 +386,6 @@ longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 // Initial setup for the first step (Pomodoro)
 initialize();
-
 
     </script>
 </body>
