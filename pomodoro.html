@@ -196,17 +196,17 @@ let minutes;
 let seconds;
 
 const timeOutput = document.getElementById('time');
-const textDisplay = document.getElementById('text-display'); // Add this line
 const startButton = document.getElementById('start');
 const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
+const progressBar = document.getElementById('progress-bar');
 const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
 
 const pomodoroTimers = [
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
   { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  // Add more timers as needed
+  // Add other timer steps here
 ];
 
 let currentStepIndex = 0;
@@ -221,6 +221,7 @@ function initializeTimer() {
   updateTimeDisplay();
   setBodyBackgroundColor(currentStep.backgroundColor, currentStep.backgroundImageUrl);
   setActiveButton();
+  updateProgressBar();
 }
 
 function updateTimeDisplay() {
@@ -228,8 +229,7 @@ function updateTimeDisplay() {
   const formattedTime = createTimeString(minutes, seconds);
   const text = `<span style="font-size: 17px; margin-bottom: 5px;">${currentStep.text}</span>${formattedTime}`;
 
-  timeOutput.innerHTML = formattedTime;
-  textDisplay.innerHTML = currentStep.text; // Add this line
+  timeOutput.innerHTML = text;
 }
 
 function createTimeString(minutes, seconds) {
@@ -238,6 +238,13 @@ function createTimeString(minutes, seconds) {
 
 function numToPaddedString(number) {
   return number.toString().padStart(2, '0');
+}
+
+function updateProgressBar() {
+  const totalTimeInSeconds = pomodoroTimers[currentStepIndex].duration * 60;
+  const elapsedSeconds = (pomodoroTimers[currentStepIndex].duration - minutes - 1) * 60 + (60 - seconds);
+  const progress = (elapsedSeconds / totalTimeInSeconds) * 100;
+  progressBar.style.width = progress + '%';
 }
 
 function tick() {
@@ -256,6 +263,7 @@ function tick() {
   }
 
   updateTimeDisplay();
+  updateProgressBar();
 }
 
 function initiateNextStep() {
@@ -263,8 +271,8 @@ function initiateNextStep() {
 
   if (currentStepIndex === 0) {
     clearInterval(timer);
+       setActiveButton();
     timer = null;
-    setActiveButton();
     return;
   }
 
@@ -278,6 +286,7 @@ function startNextStep() {
   startButton.style.color = currentStep.backgroundColor;
   startButton.innerHTML = 'START';
   initializeTimer();
+  startTimer();
   setActiveButton();
 }
 
@@ -323,21 +332,15 @@ function pausePlay() {
 }
 
 function pomodoroButtonClick() {
-  if (timer === null) {
-    startNextStep();
-  }
+  startNextStep();
 }
 
 function shortBreakButtonClick() {
-  if (timer === null) {
-    startNextStep();
-  }
+  startNextStep();
 }
 
 function longBreakButtonClick() {
-  if (timer === null) {
-    startNextStep();
-  }
+  startNextStep();
 }
 
 startButton.addEventListener('click', pausePlay, false);
@@ -347,7 +350,6 @@ longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 // Initial setup for the first step (Pomodoro)
 initializeTimer();
-
     </script>
 </body>
 </html>
