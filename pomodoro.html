@@ -179,6 +179,7 @@ body[data-timer-type='long-break'] {
           <button class="start" id="start">START</button>
           <!-- <button class="stop" id="stop">STOP</button> -->
         </section>
+          <p id="text-display"></p> <!-- Add this line -->
       </div>
     </div>
   </main>
@@ -195,6 +196,7 @@ let minutes;
 let seconds;
 
 const timeOutput = document.getElementById('time');
+const textDisplay = document.getElementById('text-display'); // Add this line
 const startButton = document.getElementById('start');
 const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
@@ -226,7 +228,8 @@ function updateTimeDisplay() {
   const formattedTime = createTimeString(minutes, seconds);
   const text = `<span style="font-size: 17px; margin-bottom: 5px;">${currentStep.text}</span>${formattedTime}`;
 
-  timeOutput.innerHTML = text;
+  timeOutput.innerHTML = formattedTime;
+  textDisplay.innerHTML = currentStep.text; // Add this line
 }
 
 function createTimeString(minutes, seconds) {
@@ -290,15 +293,17 @@ function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
 }
 
 function setActiveButton() {
-  // Remove the active class from all buttons
-  pomodoroButton.classList.remove('timer-button-active');
-  shortBreakButton.classList.remove('timer-button-active');
-  longBreakButton.classList.remove('timer-button-active');
-
-  // Set the active class based on the current timer type
-  const activeButton = document.getElementById(document.body.dataset.timerType);
+  const activeButton = document.querySelector('.timer-buttons .timer-button-active');
   if (activeButton) {
-    activeButton.classList.add('timer-button-active');
+    activeButton.classList.remove('timer-button-active');
+  }
+
+  if (document.body.dataset.timerType.includes('Pomodoro')) {
+    pomodoroButton.classList.add('timer-button-active');
+  } else if (document.body.dataset.timerType === 'short-break') {
+    shortBreakButton.classList.add('timer-button-active');
+  } else if (document.body.dataset.timerType === 'long-break') {
+    longBreakButton.classList.add('timer-button-active');
   }
 }
 
