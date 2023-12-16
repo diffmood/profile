@@ -196,7 +196,7 @@ let minutes;
 let seconds;
 
 const timeOutput = document.getElementById('time');
-const textDisplay = document.getElementById('text-display'); // Add this line
+const textDisplay = document.getElementById('text-display');
 const startButton = document.getElementById('start');
 const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
@@ -221,13 +221,13 @@ function initializeTimer() {
   updateTimeDisplay();
   setBodyBackgroundColor(currentStep.backgroundColor, currentStep.backgroundImageUrl);
   setActiveButton();
-    updateProgressBar(); // Add this line
+  updateProgressBar(); // Add this line
 }
 
 function updateProgressBar() {
   const totalTimeInSeconds = pomodoroTimers[currentStepIndex].duration * 60;
   const elapsedSeconds = (pomodoroTimers[currentStepIndex].duration - minutes - 1) * 60 + (60 - seconds);
-  const progress = (elapsedSeconds / totalTimeInSeconds) * 100;
+  const progress = ((totalTimeInSeconds - elapsedSeconds) / totalTimeInSeconds) * 100;
   progressBar.style.width = progress + '%';
 }
 
@@ -237,7 +237,7 @@ function updateTimeDisplay() {
   const text = `<span style="font-size: 17px; margin-bottom: 5px;">${currentStep.text}</span>${formattedTime}`;
 
   timeOutput.innerHTML = formattedTime;
-  textDisplay.innerHTML = currentStep.text; // Add this line
+  textDisplay.innerHTML = currentStep.text;
 }
 
 function createTimeString(minutes, seconds) {
@@ -264,6 +264,7 @@ function tick() {
   }
 
   updateTimeDisplay();
+  updateProgressBar(); // Add this line
 }
 
 function initiateNextStep() {
@@ -286,6 +287,7 @@ function startNextStep() {
   startButton.style.color = currentStep.backgroundColor;
   startButton.innerHTML = 'START';
   initializeTimer();
+  startTimer();
   setActiveButton();
 }
 
@@ -355,7 +357,6 @@ longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 // Initial setup for the first step (Pomodoro)
 initializeTimer();
-
     </script>
 </body>
 </html>
