@@ -192,17 +192,18 @@ const startButton = document.getElementById('start');
 const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
+const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3'); // Replace 'path/to/alarm-sound.mp3' with the actual path to your alarm sound file
 
 const pomodoroTimers = [
-  { duration: 25, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
-  { duration: 5, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { duration: 25, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
-  { duration: 5, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { duration: 25, backgroundColor: colors.red, text: 'الجلسة الثالثة (Pomodoro 3)' },
-  { duration: 5, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { duration:25, backgroundColor: colors.red, text: 'الجلسة الرابعة (Pomodoro 4)' },
-  { duration: 5, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { duration: 5, backgroundColor: colors.blue, text: 'انتهاء الفترة (Long Break)'},
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
+  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
+  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثالثة (Pomodoro 3)' },
+  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الرابعة (Pomodoro 4)' },
+  { duration: 1, backgroundColor: colors.teal, text: 'راحة قصيرة (Short Break)', type: 'short-break', backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { duration: 1, backgroundColor: colors.blue, text: 'انتهاء الفترة (Long Break)'},
 ];
 
 let currentStepIndex = 0;
@@ -239,6 +240,7 @@ function tick() {
   if (minutes === 0 && seconds === 0) {
     clearInterval(timer);
     initiateNextStep();
+    alarmSound.play();
     return;
   }
 
@@ -256,7 +258,6 @@ function initiateNextStep() {
   currentStepIndex = (currentStepIndex + 1) % pomodoroTimers.length;
 
   if (currentStepIndex === 0) {
-    // Stop the loop if it's the last step (after long break)
     clearInterval(timer);
     timer = null;
     return;
@@ -267,8 +268,8 @@ function initiateNextStep() {
 
 function startNextStep() {
   const currentStep = pomodoroTimers[currentStepIndex];
-  document.body.dataset.timerType = currentStep.type || ''; // Set a default value
-  localStorage.setItem('activeTimerType', currentStep.type || ''); // Set a default value
+  document.body.dataset.timerType = currentStep.type || '';
+  localStorage.setItem('activeTimerType', currentStep.type || '');
   startButton.style.color = currentStep.backgroundColor;
   startButton.innerHTML = 'START';
   initializeTimer();
@@ -336,6 +337,7 @@ longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 // Initial setup for the first step (Pomodoro)
 initializeTimer();
+
 
     </script>
 </body>
