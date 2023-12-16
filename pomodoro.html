@@ -177,7 +177,7 @@ background-color: rgba(0, 0, 0, 0.1);
         </div>
     </main>
     <script>
-const colors = {
+ const colors = {
   blue: '#457ca3',
   red: '#d95550',
   teal: '#4c9195',
@@ -314,6 +314,7 @@ function pausePlay() {
   if (timer) {
     clearInterval(timer);
     timer = null;
+    timerStarted = false;
     startButton.innerHTML = 'START';
   } else {
     startTimer();
