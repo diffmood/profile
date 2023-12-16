@@ -184,7 +184,7 @@ body[data-timer-type='long-break'] {
   </main>
 
     <script>
-        const colors = {
+const colors = {
   blue: '#457ca3',
   red: '#d95550',
   teal: '#4c9195',
@@ -290,17 +290,15 @@ function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
 }
 
 function setActiveButton() {
-  const activeButton = document.querySelector('.timer-buttons .timer-button-active');
-  if (activeButton) {
-    activeButton.classList.remove('timer-button-active');
-  }
+  // Remove the active class from all buttons
+  pomodoroButton.classList.remove('timer-button-active');
+  shortBreakButton.classList.remove('timer-button-active');
+  longBreakButton.classList.remove('timer-button-active');
 
-  if (document.body.dataset.timerType.includes('Pomodoro')) {
-    pomodoroButton.classList.add('timer-button-active');
-  } else if (document.body.dataset.timerType === 'short-break') {
-    shortBreakButton.classList.add('timer-button-active');
-  } else if (document.body.dataset.timerType === 'long-break') {
-    longBreakButton.classList.add('timer-button-active');
+  // Set the active class based on the current timer type
+  const activeButton = document.getElementById(document.body.dataset.timerType);
+  if (activeButton) {
+    activeButton.classList.add('timer-button-active');
   }
 }
 
