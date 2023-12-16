@@ -192,7 +192,7 @@ const startButton = document.getElementById('start');
 const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
-const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
+const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3'); // Replace 'path/to/alarm-sound.mp3' with the actual path to your alarm sound file
 
 const pomodoroTimers = [
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
@@ -207,11 +207,9 @@ const pomodoroTimers = [
 ];
 
 let currentStepIndex = 0;
-let timerStarted = false;
 
 function initializeTimer() {
   clearInterval(timer);
-  timerStarted = false;
 
   const currentStep = pomodoroTimers[currentStepIndex];
   minutes = currentStep.duration;
@@ -262,7 +260,7 @@ function initiateNextStep() {
   if (currentStepIndex === 0) {
     clearInterval(timer);
     timer = null;
-    timerStarted = false;
+    setActiveButton(); // Update active styles when the cycle completes
     return;
   }
 
@@ -291,30 +289,28 @@ function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
 }
 
 function setActiveButton() {
-  const activeButton = document.querySelector('.timer-buttons .timer-button-active');
-  if (activeButton) {
-    activeButton.classList.remove('timer-button-active');
-  }
+  pomodoroButton.classList.remove('timer-button-active');
+  shortBreakButton.classList.remove('timer-button-active');
+  longBreakButton.classList.remove('timer-button-active');
 
-  if (document.body.dataset.timerType.includes('Pomodoro')) {
-    pomodoroButton.classList.add('timer-button-active');
-  } else if (document.body.dataset.timerType === 'short-break') {
+  const currentStep = pomodoroTimers[currentStepIndex];
+  if (currentStep.type === 'short-break') {
     shortBreakButton.classList.add('timer-button-active');
-  } else if (document.body.dataset.timerType === 'long-break') {
+  } else if (currentStep.type === 'long-break') {
     longBreakButton.classList.add('timer-button-active');
+  } else {
+    pomodoroButton.classList.add('timer-button-active');
   }
 }
 
 function startTimer() {
   timer = setInterval(tick, 1000);
-  timerStarted = true;
 }
 
 function pausePlay() {
   if (timer) {
     clearInterval(timer);
     timer = null;
-    timerStarted = false;
     startButton.innerHTML = 'START';
   } else {
     startTimer();
@@ -323,19 +319,19 @@ function pausePlay() {
 }
 
 function pomodoroButtonClick() {
-  if (!timerStarted) {
+  if (timer === null) {
     startNextStep();
   }
 }
 
 function shortBreakButtonClick() {
-  if (!timerStarted) {
+  if (timer === null) {
     startNextStep();
   }
 }
 
 function longBreakButtonClick() {
-  if (!timerStarted) {
+  if (timer === null) {
     startNextStep();
   }
 }
