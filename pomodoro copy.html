@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عداد تحدي الكتابة</title>
+          <link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+
+</head>
+    <style>
+        @import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+ /* Variable Declarations */
+:root {
+  --font-family: 'Droid Arabic Kufi', 'Varela Round', sans-serif;
+  --font-size: 16px;
+  --font-weight: 300;
+  --font: var(--font-weight) var(--font-size) var(--font-family);
+
+  --black: #000;
+  --blue: #457ca3;
+  --red: #d95550;
+  --teal: #4c9195;
+  --white: #fff;
+}
+        *{
+            font-family: 'Droid Arabic Kufi', 'Varela Round', sans-serif;
+        }
+body {
+  font: var(--font);
+}
+
+/* Body Styles */
+body {
+  background-color: var(--red);
+  margin: 0;
+  transition: 0.3s background-color;
+      direction: rtl;
+}
+
+body[data-timer-type='pomodoro'],
+body[data-timer-type='short-break'],
+body[data-timer-type='long-break'] {
+  background-color: none;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  height: 3.75em;
+  line-height: 3.75em;
+  margin: 0 auto;
+  max-width: 38.75em;
+  padding: 0.625em 0.75em;
+}
+
+/* Logo Styles */
+.logo {
+  color: var(--white);
+  font-size: 1.25em;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 1em;
+  margin-right: 0.25rem;
+}
+
+/* Main Styles */
+.main {
+  margin: 0 auto;
+  max-width: 38.75em;
+}
+
+/* Progress Styles */
+.progress {
+  background-color: rgba(var(--black), 0.1);
+  height: 1px;
+}
+
+/* Inner Styles */
+.inner {
+  padding: 2em 4.375em;
+}
+
+/* Timer Styles */
+.timer {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5em;
+  padding: 2em;
+}
+
+/* Timer Button Styles */
+.timer-buttons {
+  display: flex;
+  gap: 0.5em;
+  justify-content: center;
+}
+
+.timer-button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0.25em;
+  color: var(--white);
+  cursor: pointer;
+  font: var(--font);
+  font-weight: 300;
+  outline: 0;
+  padding: 0.5em 1em;
+}
+
+.timer-button-active {
+  background-color: rgba(0, 0, 0, 0.15);
+  font-weight: 700;
+}
+
+/* Time Styles */
+.time {
+  color: var(--white);
+  font-size: 7.5em;
+  margin: 0;
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+/* Start Button Styles */
+.start {
+  background-color: var(--white);
+  border: 0;
+  border-radius: 0.25em;
+  color: var(--red);
+  cursor: pointer;
+  display: block;
+  font: var(--font);
+  font-size: 1.375em;
+  font-weight: 700;
+  margin: 1.25rem auto 0 auto;
+  min-width: 8em;
+  outline: 0;
+  padding: 0.5em 1em;
+  transition: 0.3s color;
+}
+
+/* Stop Button Styles */
+.stop {
+  /*display: none;*/
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+
+.stop.visible {
+  display: inline-block;
+}
+.progress-bar {
+  height: 5px;
+  background-color: #fff; /* Choose a color for your progress bar */
+  width: 0; /* Initial width is 0 */
+  transition: width 1s linear; /* Smooth transition for width changes */
+}
+        .tite{
+color: var(--white);
+font-size: 23px;
+margin: 0;
+  margin-top: 0px;
+margin-top: 0px;
+margin-top: 1.25rem;
+text-align: center;
+position: sticky;
+font-weight: 700;        
+        }
+        #text-display{
+            color: var(--white);
+font-size: 23px;
+margin: 0;
+  margin-top: 0px;
+margin-top: 0px;
+margin-top: 0px;
+margin-top: 1.25rem;
+text-align: center;
+position: static;
+font-weight: 700;
+        }
+    </style>
+<body>
+    <header class="header">
+        <a href="" class="logo">
+            <img alt="" src="">
+        </a>
+        <p class="tite">تحدي الكتابة</p>
+    </header>
+ <main class="main">
+    <div class="progress">
+        <div class="progress-bar" id="progress-bar"></div>
+      <div class="inner">
+        <section class="timer">
+          <div class="timer-buttons">
+            <button class="timer-button timer-button-active" id="pomodoro">بومودورو</button>
+            <button class="timer-button" id="short-break">استراحة قصيرة</button>
+            <button class="timer-button" id="long-break">استراحة مطولة</button>
+          </div>
+          <h6 class="time" id="time">
+            <span id="timer-display"></span>
+          </h6>
+          <button class="start" id="start">ابدء</button>
+          <!-- <button class="stop" id="stop">STOP</button> -->
+        </section>
+          <p id="text-display"></p> <!-- Add this line -->
+      </div>
+    </div>
+  </main>
+
+    <script>
+const colors = {
+  blue: '#457ca3',
+  red: '#d95550',
+  teal: '#4c9195',
+};
+
+let timer = null;
+let minutes;
+let seconds;
+
+const timeOutput = document.getElementById('time');
+const textDisplay = document.getElementById('text-display');
+const startButton = document.getElementById('start');
+const pomodoroButton = document.getElementById('pomodoro');
+const shortBreakButton = document.getElementById('short-break');
+const longBreakButton = document.getElementById('long-break');
+const progressBar = document.getElementById('progress-bar');
+const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
+
+const pomodoroTimers = [
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
+ {
+  duration: 1,
+  backgroundColor: colors.teal,
+  text: `استراحة مدة خمس دقائق من الآن وحتى .. (☕🍫) ${new Date().toLocaleTimeString()}`,
+  type: 'short-break',
+  backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+}, 
+    // Add more timers as needed
+ { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
+ {
+  duration: 1,
+  backgroundColor: colors.teal,
+  text: `استراحة مدة خمس دقائق من الآن وحتى .. (☕🍫) ${new Date().toLocaleTimeString()}`,
+  type: 'short-break',
+  backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+},
+    { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثالثة (Pomodoro 3)' },
+  {
+  duration: 1,
+  backgroundColor: colors.teal,
+  text: `استراحة مدة خمس دقائق من الآن وحتى .. (☕🍫) ${new Date().toLocaleTimeString()}`,
+  type: 'short-break',
+  backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+},
+    { duration: 1, backgroundColor: colors.red, text: 'الجلسة الرابعة (Pomodoro 4)' },
+  {
+  duration: 1,
+  backgroundColor: colors.teal,
+  text: `استراحة مدة خمس دقائق من الآن وحتى .. (☕🍫) ${new Date().toLocaleTimeString()}`,
+  type: 'short-break',
+  backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+},
+    { duration: 1, backgroundColor: colors.blue, text: 'انتهاء الفترة (Long Break)'},
+];
+
+let currentStepIndex = 0;
+
+function initializeTimer() {
+  clearInterval(timer);
+
+  const currentStep = pomodoroTimers[currentStepIndex];
+  minutes = currentStep.duration;
+  seconds = 0;
+  updateTimeDisplay();
+  setBodyBackgroundColor(currentStep.backgroundColor, currentStep.backgroundImageUrl);
+  setActiveButton();
+  updateProgressBar(); // Add this line
+}
+
+function updateProgressBar() {
+  const totalTimeInSeconds = pomodoroTimers[currentStepIndex].duration * 60;
+  const elapsedSeconds = (pomodoroTimers[currentStepIndex].duration - minutes - 1) * 60 + (60 - seconds);
+  const progress = ((totalTimeInSeconds - elapsedSeconds) / totalTimeInSeconds) * 100;
+  progressBar.style.width = progress + '%';
+}
+
+
+
+function updateTimeDisplay() {
+  const currentStep = pomodoroTimers[currentStepIndex];
+  const formattedTime = createTimeString(minutes, seconds);
+  const text = `<span style="font-size: 17px; margin-bottom: 5px;">${currentStep.text}</span>${formattedTime}`;
+
+  timeOutput.innerHTML = formattedTime;
+  textDisplay.innerHTML = currentStep.text;
+}
+
+function createTimeString(minutes, seconds) {
+  return `${numToPaddedString(minutes)}:${numToPaddedString(seconds)}`;
+}
+
+function numToPaddedString(number) {
+  return number.toString().padStart(2, '0');
+}
+
+function tick() {
+  if (minutes === 0 && seconds === 0) {
+    clearInterval(timer);
+    initiateNextStep();
+    alarmSound.play();
+    return;
+  }
+
+  seconds--;
+
+  if (seconds < 0) {
+    seconds = 59;
+    minutes--;
+  }
+
+  updateTimeDisplay();
+  updateProgressBar(); // Add this line
+}
+
+function initiateNextStep() {
+  currentStepIndex = (currentStepIndex + 1) % pomodoroTimers.length;
+
+  if (currentStepIndex === 0) {
+    clearInterval(timer);
+    timer = null;
+    setActiveButton();
+    return;
+  }
+
+  startNextStep();
+}
+
+function startNextStep() {
+  const currentStep = pomodoroTimers[currentStepIndex];
+  document.body.dataset.timerType = currentStep.type || '';
+  localStorage.setItem('activeTimerType', currentStep.type || '');
+  startButton.style.color = currentStep.backgroundColor;
+  startButton.innerHTML = 'ابدء';
+  initializeTimer();
+  startTimer();
+  setActiveButton();
+}
+
+function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
+  document.body.style.backgroundColor = backgroundColor;
+  if (backgroundImageUrl) {
+    document.body.style.backgroundImage = `url(${backgroundImageUrl})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+  } else {
+    document.body.style.backgroundImage = '';
+  }
+}
+
+function startTimer() {
+  timer = setInterval(tick, 1000);
+}
+
+function pausePlay() {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+    startButton.innerHTML = 'ابدء';
+  } else {
+    startTimer();
+    startButton.innerHTML = 'توقف';
+  }
+}
+
+function pomodoroButtonClick() {
+  if (timer === null) {
+    startNextStep();
+  }
+}
+
+function shortBreakButtonClick() {
+  if (timer === null) {
+    startNextStep();
+  }
+}
+
+function longBreakButtonClick() {
+  if (timer === null) {
+    startNextStep();
+  }
+}
+        
+function setActiveButton() {
+  // Remove the 'timer-button-active' class from any currently active button
+  const activeButton = document.querySelector('.timer-buttons .timer-button-active');
+  if (activeButton) {
+    activeButton.classList.remove('timer-button-active');
+  }
+
+  // Set the active button based on the current timer type
+  const timerType = document.body.dataset.timerType;
+  if (timerType.includes('Pomodoro')) {
+    pomodoroButton.classList.add('timer-button-active');
+  } else if (timerType === 'short-break') {
+    shortBreakButton.classList.add('timer-button-active');
+  } else if (timerType === 'long-break') {
+    longBreakButton.classList.add('timer-button-active');
+  }
+}
+
+// Function to initialize the timer and set the active button
+function initialize() {
+  initializeTimer();
+  setActiveButton();
+}
+
+// Event listeners for buttons
+startButton.addEventListener('click', pausePlay, false);
+pomodoroButton.addEventListener('click', pomodoroButtonClick, false);
+shortBreakButton.addEventListener('click', shortBreakButtonClick, false);
+longBreakButton.addEventListener('click', longBreakButtonClick, false);
+
+// Initial setup for the first step (Pomodoro)
+initialize();
+
+    </script>
+</body>
+</html>
