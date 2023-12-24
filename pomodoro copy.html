@@ -232,10 +232,13 @@ const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 const progressBar = document.getElementById('progress-bar');
 const alarmSound = new 
-const now = new Date();
-const start = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
-const endTime = new Date(now.getTime() + 5 * 60000); // 60000 milliseconds in a minute
-const end = `${endTime.getHours()}:${endTime.getMinutes().toString().padStart(2, '0')}`;
+  const now = moment();
+
+  // Format the start time
+  const start = now.format('HH:mm');
+
+  // Calculate end time (start time + 5 minutes) using Moment.js
+  const end = now.add(5, 'minutes').format('HH:mm');
 
 Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
 
