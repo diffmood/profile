@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عداد تحدي الكتابة</title>
           <link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+    <!-- Include moment.js from CDN -->
+<script src="https://cdn.jsdelivr.net/momentjs/2.29.1/moment.min.js"></script>
+
 
 </head>
     <style>
@@ -228,17 +231,22 @@ const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 const progressBar = document.getElementById('progress-bar');
-const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
+const alarmSound = new 
+const now = moment();
+const start = now.format('HH:mm');
+const end = now.add(5, 'minutes').format('HH:mm');
+Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
 
 const pomodoroTimers = [
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
+
 {
   duration: 5,
   backgroundColor: colors.teal,
-  text: `استراحة مدة خمس دقائق من ${new Date().getHours()}:${new Date().getMinutes()} وحتى .. (☕🍫)  ${(new Date().getHours() + 1).toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')}`,
+  text: `استراحة مدة خمس دقائق من ${start} وحتى .. (☕🍫) ${end}`,
   type: 'short-break',
   backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-},
+}
     // Add more timers as needed
  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
 {
