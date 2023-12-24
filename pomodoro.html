@@ -320,7 +320,7 @@ function startNextStep() {
   document.body.dataset.timerType = currentStep.type || '';
   localStorage.setItem('activeTimerType', currentStep.type || '');
   startButton.style.color = currentStep.backgroundColor;
-  startButton.innerHTML = 'ابدء';
+  startButton.innerHTML = 'ابدأ';
   initializeTimer();
   startTimer();
   setActiveButton();
