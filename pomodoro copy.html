@@ -232,15 +232,8 @@ const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 const progressBar = document.getElementById('progress-bar');
 const alarmSound = new 
-  const now = moment();
 
-  // Format the start time
-  const start = now.format('HH:mm');
-
-  // Calculate end time (start time + 5 minutes) using Moment.js
-  const end = now.add(5, 'minutes').format('HH:mm');
-
-Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
+Audio('./assets/export.m4a');
 
 const pomodoroTimers = [
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
@@ -248,34 +241,34 @@ const pomodoroTimers = [
     {
     duration: 5,
     backgroundColor: 'teal',
-    text: `استراحة مدة خمس دقائق من '${start}' وحتى .. (☕🍫) ${end}`,
+    text: `استراحة مدة خمس دقائق من وحتى .. (☕🍫) `,
     type: 'short-break',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 },
     // Add more timers as needed
  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
-{
+ {
     duration: 5,
     backgroundColor: 'teal',
-    text: `استراحة مدة خمس دقائق من '${start}' وحتى .. (☕🍫) ${end}`,
+    text: `استراحة مدة خمس دقائق من وحتى .. (☕🍫) `,
     type: 'short-break',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 },
     { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثالثة (Pomodoro 3)' },
- {
+  {
     duration: 5,
     backgroundColor: 'teal',
-    text: `استراحة مدة خمس دقائق من '${start}' وحتى .. (☕🍫) ${end}`,
+    text: `استراحة مدة خمس دقائق من وحتى .. (☕🍫) `,
     type: 'short-break',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 },
     { duration: 1, backgroundColor: colors.red, text: 'الجلسة الرابعة (Pomodoro 4)' },
   {
-  duration: 1,
-  backgroundColor: colors.teal,
-  text: `استراحة مدة خمس دقائق من الآن وحتى .. (☕🍫) ${new Date().toLocaleTimeString()}`,
-  type: 'short-break',
-  backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    duration: 5,
+    backgroundColor: 'teal',
+    text: `استراحة مدة خمس دقائق من وحتى .. (☕🍫) `,
+    type: 'short-break',
+    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 },
     { duration: 1, backgroundColor: colors.blue, text: 'انتهاء الفترة (Long Break)'},
 ];

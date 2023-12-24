@@ -202,7 +202,7 @@ font-weight: 700;
           <h6 class="time" id="time">
             <span id="timer-display"></span>
           </h6>
-          <button class="start" id="start">ابدء</button>
+          <button class="start" id="start">ابدأ</button>
           <!-- <button class="stop" id="stop">STOP</button> -->
         </section>
           <p id="text-display"></p> <!-- Add this line -->
@@ -345,7 +345,7 @@ function pausePlay() {
   if (timer) {
     clearInterval(timer);
     timer = null;
-    startButton.innerHTML = 'ابدء';
+    startButton.innerHTML = 'ابدأ';
   } else {
     startTimer();
     startButton.innerHTML = 'توقف';
