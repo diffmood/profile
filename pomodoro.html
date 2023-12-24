@@ -195,7 +195,7 @@ font-weight: 700;
       <div class="inner">
         <section class="timer">
           <div class="timer-buttons">
-            <button class="timer-button timer-button-active" id="pomodoro">بومودورو</button>
+            <button class="timer-button timer-button-active" id="pomodoro">بندورة</button>
             <button class="timer-button" id="short-break">استراحة قصيرة</button>
             <button class="timer-button" id="long-break">استراحة مطولة</button>
           </div>
@@ -228,7 +228,7 @@ const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 const progressBar = document.getElementById('progress-bar');
-const alarmSound = new Audio('https://v1.cdnpk.net/videvo_files/audio/premium/audio0022/watermarked/AlarmClockRingSml%20PE681701_preview.mp3');
+const alarmSound = new Audio('./assets/export.m4a');
 
 const pomodoroTimers = [
   { duration: 25, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
