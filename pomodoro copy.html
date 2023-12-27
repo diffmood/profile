@@ -416,8 +416,8 @@ function setActiveButton() {
 }
 
 function initialize() {
-  initializeTimer();
-  setActiveButton();
+  currentStepIndex = 0;
+  startNextStep();
 }
 
 startButton.addEventListener('click', pausePlay, false);
