@@ -233,7 +233,7 @@ const progressBar = document.getElementById('progress-bar');
 const alarmSound = new Audio('./assets/export.m4a');
 
 const pomodoroTimers = [
-  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
+  { duration: 1, backgroundColor: colors.red, text: 'جلستنا الكتابية الأولى من {{start}} وحتى {{end}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -283,7 +283,7 @@ function updateTimeDisplay() {
     .replace('{{end}}', formatTime(now.getHours(), now.getMinutes() + 5));
 
   timeOutput.innerHTML = formattedTime;
-  textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>${formattedTime}`;
+  textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
 
 function formatTime(hours, minutes) {
