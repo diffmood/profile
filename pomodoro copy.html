@@ -317,14 +317,20 @@ function updateTimeDisplay() {
   const end5Minutes = startMinutes + currentStep.duration;
   const end25Minutes = startMinutes + currentStep.duration + 20;
 
+  // Adjust hours if minutes exceed 59
+  const startHours = now.getHours() + Math.floor(startMinutes / 60);
+  const end5Hours = now.getHours() + Math.floor(end5Minutes / 60);
+  const end25Hours = now.getHours() + Math.floor(end25Minutes / 60);
+
   const text = currentStep.text
-    .replace('{{start}}', formatTime(now.getHours(), startMinutes))
-    .replace('{{end}}', formatTime(now.getHours(), end5Minutes % 60))
-    .replace('{{end1}}', formatTime(now.getHours(), end25Minutes % 60));
+    .replace('{{start}}', formatTime(startHours % 24, startMinutes % 60))
+    .replace('{{end}}', formatTime(end5Hours % 24, end5Minutes % 60))
+    .replace('{{end1}}', formatTime(end25Hours % 24, end25Minutes % 60));
 
   timeOutput.innerHTML = createTimeString(now.getMinutes(), seconds);
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
+
 
 function formatTime(hours, minutes) {
   return `${numToPaddedString(hours)}:${numToPaddedString(minutes)}`;
