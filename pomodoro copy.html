@@ -206,7 +206,7 @@ font-weight: 700;
                         <p id="text-display"></p>
                     </div>
                 </section>
-                <span id="additional-text" class="additional-text"></span>
+               <span id="additional-text" class="additional-text"></span>
             </div>
         </div>
     </main>
@@ -411,7 +411,8 @@ function setActiveButton() {
 
 function updateAdditionalText() {
   const currentStep = pomodoroTimers[currentStepIndex];
-  additionalText.innerHTML = currentStep.type === 'short-break' ? `Additional Text: ${currentStep.additionalText || ''}` : '';
+  const additionalTextElement = document.getElementById('additional-text');
+  additionalTextElement.innerHTML = currentStep.type === 'short-break' ? currentStep.additionalText || '' : '';
 }
 
 function initialize() {
