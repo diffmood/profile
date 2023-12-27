@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عداد تحدي الكتابة</title>
-          <link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
-    <!-- Include moment.js from CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 </head>
     <style>
         @import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
@@ -186,33 +184,32 @@ font-weight: 700;
     </style>
 <body>
     <header class="header">
-        <a href="" class="logo">
-            <img alt="" src="">
+        <a href="#" class="logo">
+            <!-- Remove the <img> tag if you don't have an image -->
         </a>
         <p class="tite">تحدي الكتابة</p>
     </header>
-<main class="main">
-  <div class="progress">
-    <div class="progress-bar" id="progress-bar"></div>
-    <div class="inner">
-      <section class="timer">
-        <div class="timer-buttons">
-          <button class="timer-button timer-button-active" id="pomodoro-button">بومودورو</button>
-          <button class="timer-button" id="short-break">استراحة قصيرة</button>
-          <button class="timer-button" id="long-break">استراحة مطولة</button>
+    <main class="main">
+        <div class="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+            <div class="inner">
+                <section class="timer">
+                    <div class="timer-buttons">
+                        <button class="timer-button timer-button-active" id="pomodoro-button">بومودورو</button>
+                        <button class="timer-button" id="short-break">استراحة قصيرة</button>
+                        <button class="timer-button" id="long-break">استراحة مطولة</button>
+                    </div>
+                    <h6 class="time" id="time">
+                        <span id="timer-display"></span>
+                    </h6>
+                    <div class="text-display-container">
+                        <p id="text-display"></p>
+                    </div>
+                </section>
+                <span id="additional-text" class="additional-text"></span>
+            </div>
         </div>
-        <h6 class="time" id="time">
-          <span id="timer-display"></span>
-        </h6>
-        <div class="text-display-container">
-        
-          <p id="text-display"></p>
-        </div>
-      </section>
-          <span id="additional-text" class="additional-text"></span>
-    </div>
-  </div>
-</main><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    </main>
 <script>
 const colors = {
   blue: '#457ca3',
@@ -226,8 +223,9 @@ let seconds;
 
 const timeOutput = document.getElementById('time');
 const textDisplay = document.getElementById('text-display');
-const startButton = document.getElementById('start');
-const pomodoroButton = document.getElementById('pomodoro-button'); // Updated ID
+// Update the startButton to use pomodoroButton for starting the timer
+const startButton = document.getElementById('pomodoro-button');
+const pomodoroButton = document.getElementById('pomodoro-button');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 const progressBar = document.getElementById('progress-bar');
@@ -411,13 +409,12 @@ function initialize() {
   startNextStep();
 }
 
-startButton.addEventListener('click', pausePlay, false);
+// Update the event listener to use pomodoroButtonClick instead of pausePlay
 pomodoroButton.addEventListener('click', pomodoroButtonClick, false);
 shortBreakButton.addEventListener('click', shortBreakButtonClick, false);
 longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 initialize();
-
 </script>
 
 </body>
