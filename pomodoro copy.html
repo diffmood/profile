@@ -320,6 +320,12 @@ function updateTimeDisplay() {
     adjustedMinutes += 25;
   }
 
+  // Handle cases where adjusted minutes exceed 59
+  if (adjustedMinutes > 59) {
+    adjustedMinutes %= 60;
+    now.setHours(now.getHours() + Math.floor(adjustedMinutes / 60));
+  }
+
   const formattedTime = createTimeString(adjustedMinutes, seconds);
 
   const text = currentStep.text
@@ -330,6 +336,7 @@ function updateTimeDisplay() {
   timeOutput.innerHTML = formattedTime;
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
+
 
 
 
