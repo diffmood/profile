@@ -226,9 +226,8 @@ let seconds;
 
 const timeOutput = document.getElementById('time');
 const textDisplay = document.getElementById('text-display');
-const additionalTextDisplay = document.getElementById('additional-text'); // Added line
 const startButton = document.getElementById('start');
-const pomodoroButton = document.getElementById('pomodoro');
+const pomodoroButton = document.getElementById('pomodoro-button'); // Updated ID
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 const progressBar = document.getElementById('progress-bar');
@@ -280,20 +279,12 @@ function updateTimeDisplay() {
   const currentStep = pomodoroTimers[currentStepIndex];
   const formattedTime = createTimeString(minutes, seconds);
 
-  let additionalText = 'شدا الاعلي احد الجبال الواقعة بنطقة الباحة';
-
-  // Conditionally include additional text for short breaks
-  if (currentStep.type === 'short-break') {
-    additionalText = 'استراحة قصيرة: '; // Adjust this text as needed
-  }
-
   const text = currentStep.text
     .replace('{{start}}', formatTime(now.getHours(), now.getMinutes()))
     .replace('{{end}}', formatTime(now.getHours(), now.getMinutes() + 5))
     .replace('{{end1}}', formatTime(now.getHours(), now.getMinutes() + 25));
 
   timeOutput.innerHTML = formattedTime;
-  additionalTextDisplay.textContent = additionalText; // Added line
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
 
