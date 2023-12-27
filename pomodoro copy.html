@@ -310,23 +310,24 @@ function updateProgressBar() {
 
 function updateTimeDisplay() {
   const now = new Date();
+  const currentStep = pomodoroTimers[currentStepIndex];
 
-  // Adjust minutes by adding a specific duration
-  const startMinutes = now.getMinutes();
-  const end5Minutes = startMinutes + 5;
-  const end25Minutes = startMinutes + 25;
+  // Adjust minutes based on the timer type
+  let adjustedMinutes = minutes;
+  if (currentStep.type === 'short-break') {
+    adjustedMinutes += 5;
+  } else if (currentStep.type === 'pomodoro') {
+    adjustedMinutes += 25;
+  }
 
-  // Adjust hours if minutes exceed 59
-  const startHours = now.getHours() + Math.floor(startMinutes / 60);
-  const end5Hours = now.getHours() + Math.floor(end5Minutes / 60);
-  const end25Hours = now.getHours() + Math.floor(end25Minutes / 60);
+  const formattedTime = createTimeString(adjustedMinutes, seconds);
 
   const text = currentStep.text
-    .replace('{{start}}', formatTime(startHours % 24, startMinutes % 60))
-    .replace('{{end}}', formatTime(end5Hours % 24, end5Minutes % 60))
-    .replace('{{end1}}', formatTime(end25Hours % 24, end25Minutes % 60));
+    .replace('{{start}}', formatTime(now.getHours(), now.getMinutes()))
+    .replace('{{end}}', formatTime(now.getHours(), now.getMinutes() + 5))
+    .replace('{{end1}}', formatTime(now.getHours(), now.getMinutes() + 25));
 
-  timeOutput.innerHTML = createTimeString(now.getMinutes(), seconds);
+  timeOutput.innerHTML = formattedTime;
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
 
