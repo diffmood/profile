@@ -74,16 +74,13 @@ body[data-timer-type='long-break'] {
 
 /* Progress Styles */
 .progress {
-     display: flex;
-    align-items: center;
   background-color: rgba(var(--black), 0.1);
   height: 1px;
 }
 
 /* Inner Styles */
 .inner {
-       flex: 1; /* Allow the inner section to take the remaining space */
-    padding: 2em 4.375em; /* Adjust padding if necessary */
+  position: relative;
   padding: 2em 4.375em;
 }
 
@@ -186,23 +183,22 @@ position: static;
 font-weight: 700;
         }
          .additional-text {
-  text-align: left;
+   position: absolute;
+    left: 0;
+    top: 0;
+    text-align: left;
     margin-top: 1em;
-    margin-right: 1em; /* Add margin to separate from the inner section */
+    margin-left: 1em; /* Add margin to separate from the timer section */
     width: 30%; /* Adjust the width as needed */
-             color: var(--white);
-font-size: 23px;
-margin: 0;
-  margin-top: 0px;
-margin-top: 0px;
-margin-top: 1.25rem;
-text-align: center;
-position: sticky;
-font-weight: 700;  
+    color: var(--white);
+    font-size: 23px;
+    text-align: center;
+position: static;
+font-weight: 700;
   }
     </style>
 <body>
-  <header class="header">
+ <header class="header">
   <a href="#" class="logo">
     <!-- Remove the <img> tag if you don't have an image -->
   </a>
@@ -211,7 +207,6 @@ font-weight: 700;
 <main class="main">
   <div class="progress">
     <div class="progress-bar" id="progress-bar"></div>
-    <span id="additional-text" class="additional-text"></span>
     <div class="inner">
       <section class="timer">
         <div class="timer-buttons">
@@ -225,11 +220,11 @@ font-weight: 700;
         <div class="text-display-container">
           <p id="text-display"></p>
         </div>
+        <span id="additional-text" class="additional-text"></span>
       </section>
     </div>
   </div>
 </main>
-
 <script>
 const colors = {
   blue: '#457ca3',
@@ -258,7 +253,7 @@ const pomodoroTimers = [
     backgroundColor: 'teal',
     text: `استراحة مدة خمس دقائق من {{start}} وحتى .. (☕🍫) {{end}}`,
     type: 'short-break',
-    additionalText: 'جبل شدا لاعلي الواقع بمنطقة الباحة بمحافطة المخواة',
+    additionalText: 'جبل شدا الاعلى بالباحة الواقع بمحافظة المخواة ارتفعاه عن البحر ٢٠٢٠ م والخ جبل شدا الاعلى بالباحة الواقع بمحافظة المخواة ارتفعاه عن البحر ٢٠٢٠ م والخ',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
