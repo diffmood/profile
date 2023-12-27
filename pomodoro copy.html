@@ -314,8 +314,8 @@ function updateTimeDisplay() {
 
   // Adjust minutes by adding a specific duration
   const startMinutes = now.getMinutes();
-  const end5Minutes = startMinutes + currentStep.duration;
-  const end25Minutes = startMinutes + currentStep.duration + 20;
+  const end5Minutes = startMinutes + 5;
+  const end25Minutes = startMinutes + 25;
 
   // Adjust hours if minutes exceed 59
   const startHours = now.getHours() + Math.floor(startMinutes / 60);
@@ -330,6 +330,7 @@ function updateTimeDisplay() {
   timeOutput.innerHTML = createTimeString(now.getMinutes(), seconds);
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
+
 
 
 function formatTime(hours, minutes) {
