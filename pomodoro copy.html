@@ -297,25 +297,33 @@ function updateTimeDisplay() {
   // Add 5 minutes to the displayed time for short breaks
   const updatedMinutes = currentStep.type === 'short-break' ? minutes + 5 : minutes;
 
-  // Update the current time and end time based on the updatedMinutes
+  // Calculate the current time and end time based on the updatedMinutes
   const currentMinutes = now.getMinutes() + updatedMinutes;
   const endMinutes = now.getMinutes() + (currentStep.type === 'short-break' ? 5 : 25);
 
-  // Adjust the hour if needed when the minutes exceed 59
+  // Calculate the current and end hours
   const currentHours = now.getHours() + Math.floor(currentMinutes / 60);
   const endHours = now.getHours() + Math.floor(endMinutes / 60);
 
-  const formattedTime = createTimeString(currentMinutes % 60, seconds);
-  const formattedEndTime = formatTime(endHours % 24, endMinutes % 60);
+  // Calculate the remaining minutes after accounting for hours
+  const currentRemainingMinutes = currentMinutes % 60;
+  const endRemainingMinutes = endMinutes % 60;
 
+  // Format the time strings
+  const formattedTime = createTimeString(currentRemainingMinutes, seconds);
+  const formattedEndTime = formatTime(endHours % 24, endRemainingMinutes);
+
+  // Replace placeholders in the text
   const text = currentStep.text
     .replace('{{start}}', formatTime(currentHours % 24, now.getMinutes()))
     .replace('{{end}}', formattedEndTime)
-    .replace('{{end1}}', formatTime(endHours % 24, endMinutes % 60));
+    .replace('{{end1}}', formatTime(endHours % 24, endRemainingMinutes));
 
+  // Update the display
   timeOutput.innerHTML = formattedTime;
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
+
 
 
 function formatTime(hours, minutes) {
