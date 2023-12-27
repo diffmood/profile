@@ -293,33 +293,24 @@ function updateProgressBar() {
 function updateTimeDisplay() {
   const now = new Date();
   const currentStep = pomodoroTimers[currentStepIndex];
+  
+  // Calculate total duration in seconds
+  const totalDurationInSeconds = currentStep.duration * 60;
+  
+  // Calculate elapsed seconds
+  const elapsedSeconds = totalDurationInSeconds - (minutes * 60 + seconds);
+  
+  // Calculate remaining minutes and seconds
+  const remainingMinutes = Math.floor(elapsedSeconds / 60);
+  const remainingSeconds = elapsedSeconds % 60;
 
-  // Add 5 minutes to the displayed time for short breaks
-  const updatedMinutes = currentStep.type === 'short-break' ? minutes + 5 : minutes;
+  const formattedTime = createTimeString(remainingMinutes, remainingSeconds);
 
-  // Calculate the current time and end time based on the updatedMinutes
-  const currentMinutes = now.getMinutes() + updatedMinutes;
-  const endMinutes = now.getMinutes() + (currentStep.type === 'short-break' ? 5 : 25);
-
-  // Calculate the current and end hours
-  const currentHours = now.getHours() + Math.floor(currentMinutes / 60);
-  const endHours = now.getHours() + Math.floor(endMinutes / 60);
-
-  // Calculate the remaining minutes after accounting for hours
-  const currentRemainingMinutes = currentMinutes % 60;
-  const endRemainingMinutes = endMinutes % 60;
-
-  // Format the time strings
-  const formattedTime = createTimeString(currentRemainingMinutes, seconds);
-  const formattedEndTime = formatTime(endHours % 24, endRemainingMinutes);
-
-  // Replace placeholders in the text
   const text = currentStep.text
-    .replace('{{start}}', formatTime(currentHours % 24, now.getMinutes()))
-    .replace('{{end}}', formattedEndTime)
-    .replace('{{end1}}', formatTime(endHours % 24, endRemainingMinutes));
+    .replace('{{start}}', formatTime(now.getHours(), now.getMinutes()))
+    .replace('{{end}}', formatTime(now.getHours(), now.getMinutes() + 5))
+    .replace('{{end1}}', formatTime(now.getHours(), now.getMinutes() + 25));
 
-  // Update the display
   timeOutput.innerHTML = formattedTime;
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
