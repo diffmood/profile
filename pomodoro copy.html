@@ -311,21 +311,20 @@ function updateProgressBar() {
 function updateTimeDisplay() {
   const now = new Date();
   const currentStep = pomodoroTimers[currentStepIndex];
-  
-  // Adjust minutes by adding 5 and 25
+
+  // Adjust minutes by adding a specific duration
   const startMinutes = now.getMinutes();
-  const end5Minutes = startMinutes + 5;
-  const end25Minutes = startMinutes + 25;
+  const end5Minutes = startMinutes + currentStep.duration;
+  const end25Minutes = startMinutes + currentStep.duration + 20;
 
   const text = currentStep.text
     .replace('{{start}}', formatTime(now.getHours(), startMinutes))
-    .replace('{{end}}', formatTime(now.getHours(), end5Minutes))
-    .replace('{{end1}}', formatTime(now.getHours(), end25Minutes));
+    .replace('{{end}}', formatTime(now.getHours(), end5Minutes % 60))
+    .replace('{{end1}}', formatTime(now.getHours(), end25Minutes % 60));
 
   timeOutput.innerHTML = createTimeString(now.getMinutes(), seconds);
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
-
 
 function formatTime(hours, minutes) {
   return `${numToPaddedString(hours)}:${numToPaddedString(minutes)}`;
