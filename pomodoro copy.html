@@ -309,12 +309,25 @@ function updateProgressBar() {
 }
 
 function updateTimeDisplay() {
+  const now = new Date();
   const currentStep = pomodoroTimers[currentStepIndex];
-  const text = currentStep.text
-    .replace('{{start}}', formatTime(0, 0))  // Assuming you want to start from 00:00
-    .replace('{{end}}', formatTime(0, 5))   // Assuming you want to add 5 minutes
-    .replace('{{end1}}', formatTime(0, 25)); // Assuming you want to add 25 minutes
 
+  // Calculate the adjusted end times
+  const end5 = new Date(now.getTime() + 5 * 60000);
+  const end25 = new Date(now.getTime() + 25 * 60000);
+
+  // Format the times
+  const formattedStart = formatTime(now.getHours(), now.getMinutes());
+  const formattedEnd5 = formatTime(end5.getHours(), end5.getMinutes());
+  const formattedEnd25 = formatTime(end25.getHours(), end25.getMinutes());
+
+  // Replace placeholders in the text
+  const text = currentStep.text
+    .replace('{{start}}', formattedStart)
+    .replace('{{end}}', formattedEnd5)
+    .replace('{{end1}}', formattedEnd25);
+
+  // Update the display
   timeOutput.innerHTML = createTimeString(minutes, seconds);
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
