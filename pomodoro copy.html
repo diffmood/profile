@@ -235,8 +235,6 @@ const colors = {
 let timer = null;
 let minutes;
 let seconds;
-const originalTimerDuration = 25; // Set the original Pomodoro duration in minutes
-let timerDuration = originalTimerDuration;
 
 const timeOutput = document.getElementById('time');
 const textDisplay = document.getElementById('text-display');
@@ -258,7 +256,25 @@ const pomodoroTimers = [
     additionalText: 'جبل شدا الاعلى بالباحة الواقع بمحافظة المخواة ارتفعاه عن البحر ٢٠٢٠ م والخ جبل شدا الاعلى بالباحة الواقع بمحافظة المخواة ارتفعاه عن البحر ٢٠٢٠ م والخ',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
-  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
+  { duration: 1, backgroundColor: colors.red, text: 'جلستنا الكتابية الثانية من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
+  {
+    duration: 5,
+    backgroundColor: 'teal',
+    text: `استراحة مدة خمس دقائق من {{start}} وحتى .. (☕🍫) {{end}}`,
+    type: 'short-break',
+    additionalText: 'This is additional text for short break.',
+    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+    { duration: 1, backgroundColor: colors.red, text: 'جلستنا الكتابية الثالثة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
+  {
+    duration: 5,
+    backgroundColor: 'teal',
+    text: `استراحة مدة خمس دقائق من {{start}} وحتى .. (☕🍫) {{end}}`,
+    type: 'short-break',
+    additionalText: 'This is additional text for short break.',
+    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+    { duration: 1, backgroundColor: colors.red, text: 'جلستنا الكتابية الرابعة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -276,8 +292,7 @@ function initializeTimer() {
   clearInterval(timer);
 
   const currentStep = pomodoroTimers[currentStepIndex];
-  timerDuration = currentStep.type === 'pomodoro' ? originalTimerDuration : 5; // Set the appropriate duration
-  minutes = timerDuration;
+  minutes = currentStep.duration;
   seconds = 0;
   updateTimeDisplay();
   setBodyBackgroundColor(currentStep.backgroundColor, currentStep.backgroundImageUrl);
@@ -287,34 +302,24 @@ function initializeTimer() {
 }
 
 function updateProgressBar() {
-  const totalTimeInSeconds = timerDuration * 60;
-  const elapsedSeconds = (timerDuration - minutes - 1) * 60 + (60 - seconds);
+  const totalTimeInSeconds = pomodoroTimers[currentStepIndex].duration * 60;
+  const elapsedSeconds = (pomodoroTimers[currentStepIndex].duration - minutes - 1) * 60 + (60 - seconds);
   const progress = ((totalTimeInSeconds - elapsedSeconds) / totalTimeInSeconds) * 100;
   progressBar.style.width = progress + '%';
 }
 
 function updateTimeDisplay() {
-  const now = new Date();
   const currentStep = pomodoroTimers[currentStepIndex];
-
-  // Adjust minutes by adding a specific duration
-  const startMinutes = now.getMinutes();
-  const end5Minutes = startMinutes + 5;
-  const end25Minutes = startMinutes + 25;
-
-  // Adjust hours if minutes exceed 59
-  const startHours = now.getHours() + Math.floor(startMinutes / 60);
-  const end5Hours = now.getHours() + Math.floor(end5Minutes / 60);
-  const end25Hours = now.getHours() + Math.floor(end25Minutes / 60);
-
   const text = currentStep.text
-    .replace('{{start}}', formatTime(startHours % 24, startMinutes % 60))
-    .replace('{{end}}', formatTime(end5Hours % 24, end5Minutes % 60))
-    .replace('{{end1}}', formatTime(end25Hours % 24, end25Minutes % 60));
+    .replace('{{start}}', formatTime(0, 0))  // Assuming you want to start from 00:00
+    .replace('{{end}}', formatTime(0, 5))   // Assuming you want to add 5 minutes
+    .replace('{{end1}}', formatTime(0, 25)); // Assuming you want to add 25 minutes
 
-  timeOutput.innerHTML = createTimeString(now.getMinutes(), seconds);
+  timeOutput.innerHTML = createTimeString(minutes, seconds);
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
+
+
 
 
 function formatTime(hours, minutes) {
