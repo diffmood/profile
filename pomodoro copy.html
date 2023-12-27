@@ -186,12 +186,12 @@ font-weight: 700;
    position: absolute;
     left: 0;
     top: 190;
-    text-align: left;
+    text-align: right;
     margin-top: 1em;
     margin-left: 1em; /* Add margin to separate from the timer section */
     width: 30%; /* Adjust the width as needed */
     color: var(--white);
-    font-size: 17px;
+    font-size: 12px;
     text-align: center;
 position: fixed;
 font-weight: 700;
@@ -293,16 +293,30 @@ function updateProgressBar() {
 function updateTimeDisplay() {
   const now = new Date();
   const currentStep = pomodoroTimers[currentStepIndex];
-  const formattedTime = createTimeString(minutes, seconds);
+
+  // Add 5 minutes to the displayed time for short breaks
+  const updatedMinutes = currentStep.type === 'short-break' ? minutes + 5 : minutes;
+
+  // Update the current time and end time based on the updatedMinutes
+  const currentMinutes = now.getMinutes() + updatedMinutes;
+  const endMinutes = now.getMinutes() + (currentStep.type === 'short-break' ? 5 : 25);
+
+  // Adjust the hour if needed when the minutes exceed 59
+  const currentHours = now.getHours() + Math.floor(currentMinutes / 60);
+  const endHours = now.getHours() + Math.floor(endMinutes / 60);
+
+  const formattedTime = createTimeString(currentMinutes % 60, seconds);
+  const formattedEndTime = formatTime(endHours % 24, endMinutes % 60);
 
   const text = currentStep.text
-    .replace('{{start}}', formatTime(now.getHours(), now.getMinutes()))
-    .replace('{{end}}', formatTime(now.getHours(), now.getMinutes() + 5))
-    .replace('{{end1}}', formatTime(now.getHours(), now.getMinutes() + 25));
+    .replace('{{start}}', formatTime(currentHours % 24, now.getMinutes()))
+    .replace('{{end}}', formattedEndTime)
+    .replace('{{end1}}', formatTime(endHours % 24, endMinutes % 60));
 
   timeOutput.innerHTML = formattedTime;
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
+
 
 function formatTime(hours, minutes) {
   return `${numToPaddedString(hours)}:${numToPaddedString(minutes)}`;
