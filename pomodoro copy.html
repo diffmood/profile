@@ -212,12 +212,25 @@ font-weight: 700;
     </div>
   </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
- <script>
+<script>
 const colors = {
   blue: '#457ca3',
   red: '#d95550',
   teal: '#4c9195',
 };
+
+let timer = null;
+let minutes;
+let seconds;
+
+const timeOutput = document.getElementById('time');
+const textDisplay = document.getElementById('text-display');
+const startButton = document.getElementById('start');
+const pomodoroButton = document.getElementById('pomodoro');
+const shortBreakButton = document.getElementById('short-break');
+const longBreakButton = document.getElementById('long-break');
+const progressBar = document.getElementById('progress-bar');
+const alarmSound = new Audio('./assets/export.m4a');
 
 const pomodoroTimers = [
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
@@ -228,7 +241,6 @@ const pomodoroTimers = [
     type: 'short-break',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
-  // Add more timers as needed
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
   {
     duration: 5,
@@ -241,19 +253,7 @@ const pomodoroTimers = [
 ];
 
 let currentStepIndex = 0;
-let timer = null;
-let minutes;
-let seconds;
 const now = moment(); // Assuming you have the moment.js library included
-
-const timeOutput = document.getElementById('time');
-const textDisplay = document.getElementById('text-display');
-const startButton = document.getElementById('start');
-const pomodoroButton = document.getElementById('pomodoro');
-const shortBreakButton = document.getElementById('short-break');
-const longBreakButton = document.getElementById('long-break');
-const progressBar = document.getElementById('progress-bar');
-const alarmSound = new Audio('./assets/export.m4a');
 
 function initializeTimer() {
   clearInterval(timer);
@@ -278,8 +278,9 @@ function updateTimeDisplay() {
   const currentStep = pomodoroTimers[currentStepIndex];
   const formattedTime = createTimeString(minutes, seconds);
 
-  const text = currentStep.text.replace('{{hour}}', numToPaddedString(now.hours()))
-                                .replace('{{minute}}', numToPaddedString(now.minutes()));
+  const text = currentStep.text
+    .replace('{{start}}', now.format('HH:mm'))
+    .replace('{{end}}', now.add(5, 'minutes').format('HH:mm'));
 
   timeOutput.innerHTML = formattedTime;
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>${formattedTime}`;
