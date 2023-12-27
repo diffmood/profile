@@ -213,7 +213,7 @@ font-weight: 700;
     </div>
   </main>
 
-    <script>
+   <script>
 const colors = {
   blue: '#457ca3',
   red: '#d95550',
@@ -231,46 +231,42 @@ const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 const progressBar = document.getElementById('progress-bar');
-const alarmSound = new 
-
-Audio('./assets/export.m4a');
+const alarmSound = new Audio('./assets/export.m4a');
 
 const pomodoroTimers = [
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الأولى (Pomodoro 1)' },
-
-    {
-    duration: 5,
-    backgroundColor: 'teal',
-    text: `استراحة مدة خمس دقائق من وحتى .. (☕🍫) `,
-    type: 'short-break',
-    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-},
-    // Add more timers as needed
- { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
- {
-    duration: 5,
-    backgroundColor: 'teal',
-    text: `استراحة مدة خمس دقائق من وحتى .. (☕🍫) `,
-    type: 'short-break',
-    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-},
-    { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثالثة (Pomodoro 3)' },
   {
     duration: 5,
     backgroundColor: 'teal',
-    text: `استراحة مدة خمس دقائق من وحتى .. (☕🍫) `,
+    text: `استراحة مدة خمس دقائق من الساعة {{hour}} و {{minute}} دقيقة .. (☕🍫) `,
     type: 'short-break',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-},
-    { duration: 1, backgroundColor: colors.red, text: 'الجلسة الرابعة (Pomodoro 4)' },
+  },
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
   {
     duration: 5,
     backgroundColor: 'teal',
-    text: `استراحة مدة خمس دقائق من وحتى .. (☕🍫) `,
+    text: `استراحة مدة خمس دقائق من الساعة {{hour}} و {{minute}} دقيقة .. (☕🍫) `,
     type: 'short-break',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-},
-    { duration: 1, backgroundColor: colors.blue, text: 'انتهاء الفترة (Long Break)'},
+  },
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثالثة (Pomodoro 3)' },
+  {
+    duration: 5,
+    backgroundColor: 'teal',
+    text: `استراحة مدة خمس دقائق من الساعة {{hour}} و {{minute}} دقيقة .. (☕🍫) `,
+    type: 'short-break',
+    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الرابعة (Pomodoro 4)' },
+  {
+    duration: 5,
+    backgroundColor: 'teal',
+    text: `استراحة مدة خمس دقائق من الساعة {{hour}} و {{minute}} دقيقة .. (☕🍫) `,
+    type: 'short-break',
+    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  { duration: 1, backgroundColor: colors.blue, text: 'انتهاء الفترة (Long Break)'},
 ];
 
 let currentStepIndex = 0;
@@ -284,7 +280,7 @@ function initializeTimer() {
   updateTimeDisplay();
   setBodyBackgroundColor(currentStep.backgroundColor, currentStep.backgroundImageUrl);
   setActiveButton();
-  updateProgressBar(); // Add this line
+  updateProgressBar();
 }
 
 function updateProgressBar() {
@@ -294,15 +290,15 @@ function updateProgressBar() {
   progressBar.style.width = progress + '%';
 }
 
-
-
 function updateTimeDisplay() {
   const currentStep = pomodoroTimers[currentStepIndex];
   const formattedTime = createTimeString(minutes, seconds);
-  const text = `<span style="font-size: 17px; margin-bottom: 5px;">${currentStep.text}</span>${formattedTime}`;
+
+  const text = currentStep.text.replace('{{hour}}', numToPaddedString(new Date().getHours()))
+                                .replace('{{minute}}', numToPaddedString(new Date().getMinutes()));
 
   timeOutput.innerHTML = formattedTime;
-  textDisplay.innerHTML = currentStep.text;
+  textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>${formattedTime}`;
 }
 
 function createTimeString(minutes, seconds) {
@@ -329,7 +325,7 @@ function tick() {
   }
 
   updateTimeDisplay();
-  updateProgressBar(); // Add this line
+  updateProgressBar();
 }
 
 function initiateNextStep() {
@@ -399,15 +395,13 @@ function longBreakButtonClick() {
     startNextStep();
   }
 }
-        
+
 function setActiveButton() {
-  // Remove the 'timer-button-active' class from any currently active button
   const activeButton = document.querySelector('.timer-buttons .timer-button-active');
   if (activeButton) {
     activeButton.classList.remove('timer-button-active');
   }
 
-  // Set the active button based on the current timer type
   const timerType = document.body.dataset.timerType;
   if (timerType.includes('Pomodoro')) {
     pomodoroButton.classList.add('timer-button-active');
@@ -418,21 +412,17 @@ function setActiveButton() {
   }
 }
 
-// Function to initialize the timer and set the active button
 function initialize() {
   initializeTimer();
   setActiveButton();
 }
 
-// Event listeners for buttons
 startButton.addEventListener('click', pausePlay, false);
 pomodoroButton.addEventListener('click', pomodoroButtonClick, false);
 shortBreakButton.addEventListener('click', shortBreakButtonClick, false);
 longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
-// Initial setup for the first step (Pomodoro)
 initialize();
-
-    </script>
+</script>
 </body>
 </html>
