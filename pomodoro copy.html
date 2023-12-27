@@ -223,12 +223,12 @@ let seconds;
 
 const timeOutput = document.getElementById('time');
 const textDisplay = document.getElementById('text-display');
-// Update the startButton to use pomodoroButton for starting the timer
 const startButton = document.getElementById('pomodoro-button');
 const pomodoroButton = document.getElementById('pomodoro-button');
 const shortBreakButton = document.getElementById('short-break');
 const longBreakButton = document.getElementById('long-break');
 const progressBar = document.getElementById('progress-bar');
+const additionalText = document.getElementById('additional-text');
 const alarmSound = new Audio('./assets/export.m4a');
 
 const pomodoroTimers = [
@@ -238,6 +238,7 @@ const pomodoroTimers = [
     backgroundColor: 'teal',
     text: `استراحة مدة خمس دقائق من {{start}} وحتى .. (☕🍫) {{end}}`,
     type: 'short-break',
+    additionalText: 'This is additional text for short break.',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
@@ -246,6 +247,7 @@ const pomodoroTimers = [
     backgroundColor: 'teal',
     text: `استراحة مدة خمس دقائق من {{start}} وحتى .. (☕🍫) {{end}}`,
     type: 'short-break',
+    additionalText: 'This is additional text for short break.',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   // Add more timers as needed
@@ -263,6 +265,7 @@ function initializeTimer() {
   setBodyBackgroundColor(currentStep.backgroundColor, currentStep.backgroundImageUrl);
   setActiveButton();
   updateProgressBar();
+  updateAdditionalText(); // Call the function to update additional text
 }
 
 function updateProgressBar() {
@@ -324,6 +327,7 @@ function initiateNextStep() {
     clearInterval(timer);
     timer = null;
     setActiveButton();
+    updateAdditionalText(); // Call the function to update additional text
     return;
   }
 
@@ -339,6 +343,7 @@ function startNextStep() {
   initializeTimer();
   startTimer();
   setActiveButton();
+  updateAdditionalText(); // Call the function to update additional text
 }
 
 function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
@@ -404,12 +409,18 @@ function setActiveButton() {
   }
 }
 
+function updateAdditionalText() {
+  const currentStep = pomodoroTimers[currentStepIndex];
+  additionalText.innerHTML = currentStep.type === 'short-break' ? `Additional Text: ${currentStep.additionalText || ''}` : '';
+}
+
 function initialize() {
   currentStepIndex = 0;
   startNextStep();
 }
 
-// Update the event listener to use pomodoroButtonClick instead of pausePlay
+// Update the event listeners to use the correct functions
+startButton.addEventListener('click', pausePlay, false);
 pomodoroButton.addEventListener('click', pomodoroButtonClick, false);
 shortBreakButton.addEventListener('click', shortBreakButtonClick, false);
 longBreakButton.addEventListener('click', longBreakButtonClick, false);
