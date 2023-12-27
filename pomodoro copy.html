@@ -316,10 +316,17 @@ function updateTimeDisplay() {
   const end5 = new Date(now.getTime() + 5 * 60000);
   const end25 = new Date(now.getTime() + 25 * 60000);
 
+  // Adjust hours and minutes if needed
+  const adjustedEnd5Hours = end5.getHours() + Math.floor(end5.getMinutes() / 60);
+  const adjustedEnd5Minutes = end5.getMinutes() % 60;
+
+  const adjustedEnd25Hours = end25.getHours() + Math.floor(end25.getMinutes() / 60);
+  const adjustedEnd25Minutes = end25.getMinutes() % 60;
+
   // Format the times
   const formattedStart = formatTime(now.getHours(), now.getMinutes());
-  const formattedEnd5 = formatTime(end5.getHours(), end5.getMinutes());
-  const formattedEnd25 = formatTime(end25.getHours(), end25.getMinutes());
+  const formattedEnd5 = formatTime(adjustedEnd5Hours, adjustedEnd5Minutes);
+  const formattedEnd25 = formatTime(adjustedEnd25Hours, adjustedEnd25Minutes);
 
   // Replace placeholders in the text
   const text = currentStep.text
@@ -331,6 +338,7 @@ function updateTimeDisplay() {
   timeOutput.innerHTML = createTimeString(minutes, seconds);
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
+
 
 
 
