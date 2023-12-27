@@ -74,12 +74,16 @@ body[data-timer-type='long-break'] {
 
 /* Progress Styles */
 .progress {
+     display: flex;
+    align-items: center;
   background-color: rgba(var(--black), 0.1);
   height: 1px;
 }
 
 /* Inner Styles */
 .inner {
+       flex: 1; /* Allow the inner section to take the remaining space */
+    padding: 2em 4.375em; /* Adjust padding if necessary */
   padding: 2em 4.375em;
 }
 
@@ -182,39 +186,50 @@ position: static;
 font-weight: 700;
         }
          .additional-text {
-    display: block;
-    text-align: left;
+  text-align: left;
     margin-top: 1em;
+    margin-right: 1em; /* Add margin to separate from the inner section */
+    width: 30%; /* Adjust the width as needed */
+             color: var(--white);
+font-size: 23px;
+margin: 0;
+  margin-top: 0px;
+margin-top: 0px;
+margin-top: 1.25rem;
+text-align: center;
+position: sticky;
+font-weight: 700;  
   }
     </style>
 <body>
-    <header class="header">
-        <a href="#" class="logo">
-            <!-- Remove the <img> tag if you don't have an image -->
-        </a>
-        <p class="tite">تحدي الكتابة</p>
-    </header>
-    <main class="main">
-        <div class="progress">
-            <div class="progress-bar" id="progress-bar"></div>
-            <div class="inner">
-                <section class="timer">
-                    <div class="timer-buttons">
-                        <button class="timer-button timer-button-active" id="pomodoro-button">بومودورو</button>
-                        <button class="timer-button" id="short-break">استراحة قصيرة</button>
-                        <button class="timer-button" id="long-break">استراحة مطولة</button>
-                    </div>
-                    <h6 class="time" id="time">
-                        <span id="timer-display"></span>
-                    </h6>
-                    <div class="text-display-container">
-                        <p id="text-display"></p>
-                    </div>
-                </section>
-               <span id="additional-text" class="additional-text"></span>
-            </div>
+  <header class="header">
+  <a href="#" class="logo">
+    <!-- Remove the <img> tag if you don't have an image -->
+  </a>
+  <p class="tite">تحدي الكتابة</p>
+</header>
+<main class="main">
+  <div class="progress">
+    <div class="progress-bar" id="progress-bar"></div>
+    <span id="additional-text" class="additional-text"></span>
+    <div class="inner">
+      <section class="timer">
+        <div class="timer-buttons">
+          <button class="timer-button timer-button-active" id="pomodoro-button">بومودورو</button>
+          <button class="timer-button" id="short-break">استراحة قصيرة</button>
+          <button class="timer-button" id="long-break">استراحة مطولة</button>
         </div>
-    </main>
+        <h6 class="time" id="time">
+          <span id="timer-display"></span>
+        </h6>
+        <div class="text-display-container">
+          <p id="text-display"></p>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
 <script>
 const colors = {
   blue: '#457ca3',
