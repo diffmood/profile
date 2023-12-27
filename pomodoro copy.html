@@ -191,27 +191,27 @@ font-weight: 700;
         </a>
         <p class="tite">تحدي الكتابة</p>
     </header>
- <main class="main">
-    <div class="progress">
-        <div class="progress-bar" id="progress-bar"></div>
-      <div class="inner">
-        <section class="timer">
-          <div class="timer-buttons">
-            <button class="timer-button timer-button-active" id="pomodoro">بومودورو</button>
-            <button class="timer-button" id="short-break">استراحة قصيرة</button>
-            <button class="timer-button" id="long-break">استراحة مطولة</button>
-          </div>
-          <h6 class="time" id="time">
-            <span id="timer-display"></span>
-          </h6>
-          <button class="start" id="start">ابدء</button>
-          <!-- <button class="stop" id="stop">STOP</button> -->
-        </section>
-          <p id="text-display"></p> <!-- Add this line -->
-      </div>
+<main class="main">
+  <div class="progress">
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="inner">
+      <section class="timer">
+        <div class="timer-buttons">
+          <button class="timer-button timer-button-active" id="pomodoro">بومودورو</button>
+          <button class="timer-button" id="short-break">استراحة قصيرة</button>
+          <button class="timer-button" id="long-break">استراحة مطولة</button>
+        </div>
+        <h6 class="time" id="time">
+          <span id="timer-display"></span>
+        </h6>
+        <div class="text-display-container">
+          <span id="additional-text" class="additional-text"></span>
+          <p id="text-display"></p>
+        </div>
+      </section>
     </div>
-  </main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  </div>
+</main><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
 const colors = {
   blue: '#457ca3',
@@ -225,6 +225,7 @@ let seconds;
 
 const timeOutput = document.getElementById('time');
 const textDisplay = document.getElementById('text-display');
+const additionalTextDisplay = document.getElementById('additional-text'); // Added line
 const startButton = document.getElementById('start');
 const pomodoroButton = document.getElementById('pomodoro');
 const shortBreakButton = document.getElementById('short-break');
@@ -274,9 +275,16 @@ function updateProgressBar() {
 }
 
 function updateTimeDisplay() {
-  const now = new Date(); // Use JavaScript Date object
+  const now = new Date();
   const currentStep = pomodoroTimers[currentStepIndex];
   const formattedTime = createTimeString(minutes, seconds);
+
+  let additionalText = 'شدا الاعلي احد الجبال الواقعة بنطقة الباحة';
+
+  // Conditionally include additional text for short breaks
+  if (currentStep.type === 'short-break') {
+    additionalText = 'استراحة قصيرة: '; // Adjust this text as needed
+  }
 
   const text = currentStep.text
     .replace('{{start}}', formatTime(now.getHours(), now.getMinutes()))
@@ -284,6 +292,7 @@ function updateTimeDisplay() {
     .replace('{{end1}}', formatTime(now.getHours(), now.getMinutes() + 25));
 
   timeOutput.innerHTML = formattedTime;
+  additionalTextDisplay.textContent = additionalText; // Added line
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
 
@@ -416,6 +425,7 @@ shortBreakButton.addEventListener('click', shortBreakButtonClick, false);
 longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 initialize();
+
 </script>
 
 </body>
