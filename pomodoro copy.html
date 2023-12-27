@@ -185,15 +185,15 @@ font-weight: 700;
          .additional-text {
    position: absolute;
     left: 0;
-    top: 0;
+    top: 190;
     text-align: left;
     margin-top: 1em;
     margin-left: 1em; /* Add margin to separate from the timer section */
     width: 30%; /* Adjust the width as needed */
     color: var(--white);
-    font-size: 23px;
+    font-size: 17px;
     text-align: center;
-position: static;
+position: fixed;
 font-weight: 700;
   }
     </style>
@@ -207,6 +207,7 @@ font-weight: 700;
 <main class="main">
   <div class="progress">
     <div class="progress-bar" id="progress-bar"></div>
+              <span id="additional-text" class="additional-text"></span>
     <div class="inner">
       <section class="timer">
         <div class="timer-buttons">
@@ -220,7 +221,6 @@ font-weight: 700;
         <div class="text-display-container">
           <p id="text-display"></p>
         </div>
-        <span id="additional-text" class="additional-text"></span>
       </section>
     </div>
   </div>
