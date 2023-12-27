@@ -322,17 +322,19 @@ function updateTimeDisplay() {
   let remainingMinutes = Math.floor(elapsedSeconds / 60);
   const remainingSeconds = elapsedSeconds % 60;
 
-  // Add 5 minutes to the remaining time if it's a short break
-  remainingMinutes = currentStep.type === 'short-break' ? remainingMinutes + 5 : remainingMinutes;
+  // Add 5 minutes to the remaining time
+  let adjustedMinutes = remainingMinutes + 5;
 
-  // Update the hour if remaining minutes exceed 59
-  if (remainingMinutes > 59) {
-    const additionalHours = Math.floor(remainingMinutes / 60);
+  // Update the hour and minute if adjusted minutes exceed 59
+  if (adjustedMinutes > 59) {
+    const additionalHours = Math.floor(adjustedMinutes / 60);
+    const additionalMinutes = adjustedMinutes % 60;
+
     now.setHours(now.getHours() + additionalHours);
-    remainingMinutes %= 60;
+    now.setMinutes(now.getMinutes() + additionalMinutes);
   }
 
-  const formattedTime = createTimeString(remainingMinutes, remainingSeconds);
+  const formattedTime = createTimeString(adjustedMinutes, remainingSeconds);
 
   const text = currentStep.text
     .replace('{{start}}', formatTime(now.getHours(), now.getMinutes()))
