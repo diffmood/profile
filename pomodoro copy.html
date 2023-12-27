@@ -256,7 +256,25 @@ const pomodoroTimers = [
     additionalText: 'جبل شدا الاعلى بالباحة الواقع بمحافظة المخواة ارتفعاه عن البحر ٢٠٢٠ م والخ جبل شدا الاعلى بالباحة الواقع بمحافظة المخواة ارتفعاه عن البحر ٢٠٢٠ م والخ',
     backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
-  { duration: 1, backgroundColor: colors.red, text: 'الجلسة الثانية (Pomodoro 2)' },
+  { duration: 1, backgroundColor: colors.red, text: 'جلستنا الكتابية الثانية من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
+  {
+    duration: 5,
+    backgroundColor: 'teal',
+    text: `استراحة مدة خمس دقائق من {{start}} وحتى .. (☕🍫) {{end}}`,
+    type: 'short-break',
+    additionalText: 'This is additional text for short break.',
+    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+    { duration: 1, backgroundColor: colors.red, text: 'جلستنا الكتابية الثالثة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
+  {
+    duration: 5,
+    backgroundColor: 'teal',
+    text: `استراحة مدة خمس دقائق من {{start}} وحتى .. (☕🍫) {{end}}`,
+    type: 'short-break',
+    additionalText: 'This is additional text for short break.',
+    backgroundImageUrl: 'https://images.unsplash.com/photo-1529177926897-1d894ca01471?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+    { duration: 1, backgroundColor: colors.red, text: 'جلستنا الكتابية الرابعة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -293,16 +311,26 @@ function updateProgressBar() {
 function updateTimeDisplay() {
   const now = new Date();
   const currentStep = pomodoroTimers[currentStepIndex];
-  
+
   // Calculate total duration in seconds
   const totalDurationInSeconds = currentStep.duration * 60;
-  
+
   // Calculate elapsed seconds
   const elapsedSeconds = totalDurationInSeconds - (minutes * 60 + seconds);
-  
+
   // Calculate remaining minutes and seconds
-  const remainingMinutes = Math.floor(elapsedSeconds / 60);
+  let remainingMinutes = Math.floor(elapsedSeconds / 60);
   const remainingSeconds = elapsedSeconds % 60;
+
+  // Add 5 minutes to the remaining time if it's a short break
+  remainingMinutes = currentStep.type === 'short-break' ? remainingMinutes + 5 : remainingMinutes;
+
+  // Update the hour if remaining minutes exceed 59
+  if (remainingMinutes > 59) {
+    const additionalHours = Math.floor(remainingMinutes / 60);
+    now.setHours(now.getHours() + additionalHours);
+    remainingMinutes %= 60;
+  }
 
   const formattedTime = createTimeString(remainingMinutes, remainingSeconds);
 
