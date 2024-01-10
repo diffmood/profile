@@ -265,7 +265,7 @@ const pomodoroTimers = [
     additionalText: 'This is additional text for short break.',
     backgroundImageUrl: './assets/images/back.jpg',
   },
-    { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الثالثة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
+  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الثالثة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -274,7 +274,7 @@ const pomodoroTimers = [
     additionalText: 'This is additional text for short break.',
     backgroundImageUrl: './assets/images/back.jpg',
   },
-    { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الرابعة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
+  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الرابعة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -339,12 +339,14 @@ function updateTimeDisplay() {
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
 
-
-
-
-
 function formatTime(hours, minutes) {
-  return `${numToPaddedString(hours)}:${numToPaddedString(minutes)}`;
+  // Convert hours to 12-hour format
+  const formattedHours = hours % 12 || 12;
+
+  // Determine whether it's AM or PM
+  const period = hours < 12 ? 'ص' : 'م';
+
+  return `${numToPaddedString(formattedHours)}:${numToPaddedString(minutes)} ${period}`;
 }
 
 function createTimeString(minutes, seconds) {
@@ -399,7 +401,7 @@ function startNextStep() {
   setActiveButton();
   updateAdditionalText(); // Call the function to update additional text
 }
-    
+
 function setBodyBackgroundColor(backgroundColor, backgroundImageUrl) {
   document.body.style.backgroundColor = backgroundColor;
 
@@ -468,7 +470,7 @@ function updateAdditionalText() {
   const additionalTextElement = document.getElementById('additional-text');
   additionalTextElement.innerHTML = currentStep.type === 'short-break' ? currentStep.additionalText || '' : '';
 }
-    
+
 function initialize() {
   currentStepIndex = 0;
   startNextStep();
@@ -481,6 +483,7 @@ shortBreakButton.addEventListener('click', shortBreakButtonClick, false);
 longBreakButton.addEventListener('click', longBreakButtonClick, false);
 
 initialize();
+
 </script>
 
 </body>
