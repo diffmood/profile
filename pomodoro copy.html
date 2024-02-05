@@ -247,7 +247,7 @@ const additionalText = document.getElementById('additional-text');
 const alarmSound = new Audio('./assets/export.m4a');
 
 const pomodoroTimers = [
-  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الأولى من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)', type: 'Pomodoro' },
+  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الأولى من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -256,7 +256,7 @@ const pomodoroTimers = [
     additionalText: 'جبل شدا الاعلى بالباحة الواقع بمحافظة المخواة ارتفعاه عن البحر ٢٠٢٠ م والخ جبل شدا الاعلى بالباحة الواقع بمحافظة المخواة ارتفعاه عن البحر ٢٠٢٠ م والخ',
     backgroundImageUrl: './assets/images/back.jpg',
   },
-  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الثانية من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)', type: 'Pomodoro' },
+  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الثانية من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -265,7 +265,7 @@ const pomodoroTimers = [
     additionalText: 'This is additional text for short break.',
     backgroundImageUrl: './assets/images/back.jpg',
   },
-  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الثالثة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)', type: 'Pomodoro' },
+  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الثالثة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -274,7 +274,7 @@ const pomodoroTimers = [
     additionalText: 'This is additional text for short break.',
     backgroundImageUrl: './assets/images/back.jpg',
   },
-  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الرابعة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)', type: 'Pomodoro' },
+  { duration: 25, backgroundColor: colors.red, text: 'جلستنا الكتابية الرابعة من {{start}} وحتى {{end1}} (لمدة 25 دقيقة ثم استراحة خمس دقائق) (🧑‍💻👩‍💻)' },
   {
     duration: 5,
     backgroundColor: 'teal',
@@ -302,6 +302,9 @@ function initializeTimer() {
   // Check if it's a Pomodoro timer
   if (currentStep.type === 'Pomodoro') {
     updateTextDisplay();
+  } else {
+    // If it's not a Pomodoro timer, hide the text display
+    textDisplay.innerHTML = '';
   }
 
   updateAdditionalText(); // Call the function to update additional text
@@ -315,12 +318,8 @@ function updateProgressBar() {
 }
 
 function updateTimeDisplay() {
-  timeOutput.innerHTML = createTimeString(minutes, seconds);
-}
-
-function updateTextDisplay() {
-  const currentStep = pomodoroTimers[currentStepIndex];
   const now = new Date();
+  const currentStep = pomodoroTimers[currentStepIndex];
 
   // Calculate the adjusted end times
   const end5 = new Date(now.getTime() + 5 * 60000);
@@ -345,6 +344,7 @@ function updateTextDisplay() {
     .replace('{{end1}}', formattedEnd25);
 
   // Update the display
+  timeOutput.innerHTML = createTimeString(minutes, seconds);
   textDisplay.innerHTML = `<span style="font-size: 17px; margin-bottom: 5px;">${text}</span>`;
 }
 
